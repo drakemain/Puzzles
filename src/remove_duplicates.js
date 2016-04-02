@@ -1,4 +1,4 @@
-module.exports = function dupesToZero(input) {
+module.exports = function removeDuplicates(input) {
   for (var i = 0; i < input.length - 1 ; i++) {
     if (input[i] === 0) {
       return;
