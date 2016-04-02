@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var rmduplicates = require('./../src/rmDuplicate');
+var rmduplicates = require('./../src/remove_duplicates');
 
 describe('Array', function(){
   it('Should remove duplicates', function() {
