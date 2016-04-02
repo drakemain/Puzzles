@@ -10,6 +10,9 @@ describe('Array', function(){
   it('Should equal expected', function() {
     rmduplicates(arr);
 
-    assert.equal(arr, expected);
+    console.log(arr);
+    console.log(expected);
+
+    assert.deepEqual(arr, expected);
   });
 });
