@@ -1,3 +1,6 @@
+// Given a positive integer, create and array containing all
+// preceeding prime numbers.
+
 function trialDivision(input) {
   var primeArr = [];
 
