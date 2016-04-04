@@ -43,6 +43,13 @@ describe('Linked List', function() {
     assert(list.equals(list2));
   });
 
+  it('should not consider two arrays with equal prefix to be equal', function() {
+    var list = List.fromArray([0, 1, 2, 3, 4]);
+    var list2 = List.fromArray([0, 1, 2]);
+
+    assert(!list.equals(list2));
+  });
+
   it('should convert to string', function() {
     var list = List.fromArray([0, 1, 2, 3, 4]);
 

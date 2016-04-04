@@ -62,7 +62,7 @@ List.prototype.equals = function(other) {
     b = b.next;
   }
 
-  // One list still has elements then it means that that list is longer then the
+  // One list still has elements then it means that that list is longer than the
   // other, so clearly they cannot be equal.
   if (a || b) {
     return false;
