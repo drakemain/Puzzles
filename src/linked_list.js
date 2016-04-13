@@ -150,16 +150,31 @@ List.prototype.removeNode = function removeNode(nodeToRemove) {
       leftEdgeNode;
 
   while(currentNode !== null) {
+    
+    // find the node to the "left" of the node to remove.
     if (counter + 1 === nodeToRemove) {
+      
+      // if true, there is no node to remove.
+      if (currentNode.next === null) {
+        return;
+      }
+
+      // otherwise, this is the node that needs to be modified.
       leftEdgeNode = currentNode;
     }
 
+    // find the node to remove.
     else if (counter === nodeToRemove) {
-      leftEdgeNode.next = null;
-    }
+      
+      // if true, the left node is the end of the chain.
+      if (currentNode.next === null) {
+        leftEdgeNode.next = null;
+        return;
+      }
 
-    else if (counter - 1 === nodeToRemove) {
-      leftEdgeNode.next = currentNode;
+      // otherwise, get the next node and set the left node
+      // to link to it.
+      leftEdgeNode.next = currentNode.next;
       return;
     }
 
