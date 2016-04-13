@@ -153,13 +153,6 @@ List.prototype.removeNode = function removeNode(nodeToRemove) {
     
     // find the node to the "left" of the node to remove.
     if (counter + 1 === nodeToRemove) {
-      
-      // if true, there is no node to remove.
-      if (currentNode.next === null) {
-        return;
-      }
-
-      // otherwise, this is the node that needs to be modified.
       leftEdgeNode = currentNode;
     }
 
