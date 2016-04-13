@@ -27,7 +27,7 @@
 // list implementation, but you can do them later.
 function List(value, next) {
   this.value = value;
-  this.next = next|| null;
+  this.next = next || null;
 };
 
 // To append a new value to the collection of values represented by this linked
@@ -95,6 +95,17 @@ List.fromArray = function(array) {
   return head;
 };
 
+List.prototype.length = function() {
+  var node = this,
+      counter = 0;
+
+  while (node !== null) {
+    counter++;
+    node = node.next;
+  }
+  return counter;
+}
+
 // Helper function to convert a linked list to a string, so you can do e.g.
 // console.log(list)
 List.prototype.toString = function() {
@@ -133,4 +144,45 @@ List.prototype.appendArray = function(array) {
   }
 };
 
-module.exports = List;
+List.prototype.removeNode = function(nodeToRemove) {
+  var node = this,
+      counter = 0,
+      leftEdgeNode;
+
+  while(node !== null) {
+    console.log(counter);
+
+    if (counter + 1 === nodeToRemove) {
+      if (node.next === null) {
+        throw "Node to remove doesn't exist.";
+      } else {
+        console.log('left of node.');
+        leftEdgeNode = node;
+      }
+
+    } else if (counter === nodeToRemove) {
+      if (node.next === null) {
+        console.log('this is the node to remove.');
+        leftEdgeNode.next = null;
+      }
+    
+    } else if (counter - 1 === nodeToRemove) {
+      console.log('this replaces removed node');
+      leftEdgeNode = node;
+      return;
+    }
+
+    counter++;
+    node = node.next;
+  }
+}
+
+exports.List = List;
+
+function removeSecondNode(head) {
+  var thirdNode = head.next.next;
+
+  head.next = thirdNode;
+}
+
+exports.removeSecondNode = removeSecondNode;

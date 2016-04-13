@@ -1,7 +1,8 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var List = require('./../src/linked_list');
+var List = require('./../src/linked_list').List;
+var removeSecondNode = require('./../src/linked_list').removeSecondNode;
 
 describe('Linked List', function() {
   it('can be built from an array', function() {
@@ -54,5 +55,20 @@ describe('Linked List', function() {
     var list = List.fromArray([0, 1, 2, 3, 4]);
 
     assert.equal(list.toString(), "0 → 1 → 2 → 3 → 4");
+  });
+
+  it('should get the length of the list', function() {
+    var list = List.fromArray([0, 1, 2, 3, 4, 5, 6, 7]);
+
+    assert.equal(list.length(), 8);
+  });
+
+  it('should remove the second node from this list', function() {
+    var list = List.fromArray([0, 1, 2, 3, 4, 5]);
+
+    removeSecondNode(list);
+    console.log(list.toString());
+
+    assert(list.equals(List.fromArray([0, 2, 3, 4, 5])), 'fail');
   });
 });
