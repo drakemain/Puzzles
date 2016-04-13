@@ -3,6 +3,7 @@ var assert = chai.assert;
 
 var List = require('./../src/linked_list').List;
 var removeSecondNode = require('./../src/linked_list').removeSecondNode;
+var removeNode = require('./../src/linked_list').removeNode;
 
 describe('Linked List', function() {
   it('can be built from an array', function() {
@@ -66,8 +67,7 @@ describe('Linked List', function() {
   it('should remove the second node from this list', function() {
     var list = List.fromArray([0, 1, 2, 3, 4, 5]);
 
-    removeSecondNode(list);
-    console.log(list.toString());
+    list.removeNode(1);
 
     assert(list.equals(List.fromArray([0, 2, 3, 4, 5])), 'fail');
   });

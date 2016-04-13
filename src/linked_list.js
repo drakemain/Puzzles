@@ -144,45 +144,28 @@ List.prototype.appendArray = function(array) {
   }
 };
 
-List.prototype.removeNode = function(nodeToRemove) {
-  var node = this,
+List.prototype.removeNode = function removeNode(nodeToRemove) {
+  var currentNode = this,
       counter = 0,
       leftEdgeNode;
 
-  while(node !== null) {
-    console.log(counter);
-
+  while(currentNode !== null) {
     if (counter + 1 === nodeToRemove) {
-      if (node.next === null) {
-        throw "Node to remove doesn't exist.";
-      } else {
-        console.log('left of node.');
-        leftEdgeNode = node;
-      }
+      leftEdgeNode = currentNode;
+    }
 
-    } else if (counter === nodeToRemove) {
-      if (node.next === null) {
-        console.log('this is the node to remove.');
-        leftEdgeNode.next = null;
-      }
-    
-    } else if (counter - 1 === nodeToRemove) {
-      console.log('this replaces removed node');
-      leftEdgeNode = node;
+    else if (counter === nodeToRemove) {
+      leftEdgeNode.next = null;
+    }
+
+    else if (counter - 1 === nodeToRemove) {
+      leftEdgeNode.next = currentNode;
       return;
     }
 
+    currentNode = currentNode.next;
     counter++;
-    node = node.next;
   }
 }
 
 exports.List = List;
-
-function removeSecondNode(head) {
-  var thirdNode = head.next.next;
-
-  head.next = thirdNode;
-}
-
-exports.removeSecondNode = removeSecondNode;
