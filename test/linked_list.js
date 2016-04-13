@@ -71,4 +71,12 @@ describe('Linked List', function() {
 
     assert(list.equals(List.fromArray([0, 2, 3, 4, 5])), 'fail');
   });
+
+  it('should remove the last node from this list', function() {
+    var list = List.fromArray([0, 1, 2, 3, 4, 5]);
+
+    list.removeNode(5);
+
+    assert(list.equals(List.fromArray([0, 1, 2, 3, 4])), 'fail');
+  });
 });
