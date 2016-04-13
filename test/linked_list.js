@@ -79,4 +79,12 @@ describe('Linked List', function() {
 
     assert(list.equals(List.fromArray([0, 1, 2, 3, 4])), 'fail');
   });
+
+  it('should end with same list if node to remove is greater than list length', function() {
+    var list = List.fromArray([0, 1, 2, 3, 4, 5]);
+
+    list.removeNode(6);
+
+    assert(list.equals(List.fromArray([0, 1, 2, 3, 4, 5])), 'fail');
+  })
 });
