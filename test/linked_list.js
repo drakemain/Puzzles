@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var List = require('./../src/linked_list').List;
+var List = require('./../src/linked_list');
 var removeSecondNode = require('./../src/linked_list').removeSecondNode;
 var removeNode = require('./../src/linked_list').removeNode;
 

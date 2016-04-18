@@ -169,4 +169,4 @@ List.prototype.removeNode = function removeNode(nodeToRemove) {
   }
 }
 
-exports.List = List;
+module.exports = List;
