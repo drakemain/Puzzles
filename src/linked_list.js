@@ -169,4 +169,21 @@ List.prototype.removeNode = function removeNode(nodeToRemove) {
   }
 }
 
+List.prototype.insert = function(value, index) {
+  var node = this,
+      indexTracker = 0,
+      leftEdgeNode;
+
+  while(node !== null) {
+    if (indexTracker + 1 === index) {
+      leftEdgeNode = node;
+    } else if (indexTracker === index) {
+      leftEdgeNode.next = new List(value, node)
+    }
+
+    node = node.next;
+    indexTracker++;
+  }
+}
+
 module.exports = List;

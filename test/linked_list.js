@@ -86,5 +86,11 @@ describe('Linked List', function() {
     list.removeNode(6);
 
     assert(list.equals(List.fromArray([0, 1, 2, 3, 4, 5])), 'fail');
-  })
+  });
+
+  it('should insert a node into the list', function() {
+    var list1 = List.fromArray([0, 1, 2, 4, 5]);
+    list1.insert(3, 3);
+    assert(list1.equals(List.fromArray([0, 1, 2, 3, 4, 5])), 'fail');
+  });
 });
