@@ -178,7 +178,8 @@ List.prototype.insert = function(value, index) {
     if (indexTracker + 1 === index) {
       leftEdgeNode = node;
     } else if (indexTracker === index) {
-      leftEdgeNode.next = new List(value, node)
+      leftEdgeNode.next = new List(value, node);
+      return;
     }
 
     node = node.next;
