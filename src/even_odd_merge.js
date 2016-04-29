@@ -1,4 +1,4 @@
-var List = require('./linked_list');
+var List = require('./linked_list').List;
 
 module.exports = function(list) {
 	var counter = 0;

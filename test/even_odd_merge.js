@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var List = require('./../src/linked_list');
+var List = require('./../src/linked_list').List;
 var evenOddMerge = require('./../src/even_odd_merge');
 
 describe("Even Odd Merge", function() {
