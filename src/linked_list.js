@@ -203,8 +203,6 @@ var reverse = function(head) {
       previousNode,
       nextNode = currentNode.next;
 
-  var iterator = 0;
-
   while(currentNode) {
     previousNode = currentNode;
     currentNode = nextNode;
