@@ -187,4 +187,36 @@ List.prototype.insert = function(value, index) {
   }
 }
 
-module.exports = List;
+List.prototype.printValues = function() {
+  var node = this;
+
+  while(node !== null) {
+    console.log(node.value);
+    node = node.next;
+  }
+}
+
+exports.List = List;
+
+var reverse = function(head) {
+  var currentNode = head,
+      previousNode,
+      nextNode = currentNode.next;
+
+  var iterator = 0;
+
+  while(currentNode) {
+    previousNode = currentNode;
+    currentNode = nextNode;
+
+    if (currentNode) {
+      nextNode = currentNode.next;
+      currentNode.next = previousNode;
+    }
+  }
+
+  head.next = null;
+  return previousNode;
+}
+
+exports.reverse = reverse;

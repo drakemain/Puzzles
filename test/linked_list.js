@@ -1,7 +1,8 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var List = require('./../src/linked_list');
+var List = require('./../src/linked_list').List;
+var reverse = require('./../src/linked_list').reverse;
 var removeSecondNode = require('./../src/linked_list').removeSecondNode;
 var removeNode = require('./../src/linked_list').removeNode;
 
@@ -92,5 +93,12 @@ describe('Linked List', function() {
     var list1 = List.fromArray([0, 1, 2, 4, 5]);
     list1.insert(3, 3);
     assert(list1.equals(List.fromArray([0, 1, 2, 3, 4, 5])), 'fail');
+  });
+
+  it('should reverse the list', function() {
+    var list = List.fromArray([0, 1, 2, 3, 4, 5]);
+    list = reverse(list);
+    list.printValues();
+    assert(list.equals(List.fromArray([5, 4, 3, 2, 1, 0])), 'fail');
   });
 });
