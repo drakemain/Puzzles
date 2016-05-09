@@ -4,10 +4,11 @@ module.exports = function(head) {
   var lookingAt = head,
       evenTail,
       oddHead,
-      oddTail;
+      oddTail,
+      index = 0;
 
   while (lookingAt !== null) {
-    if (lookingAt.value % 2 === 0) {
+    if (index % 2 === 0) {
       if (evenTail) {
         evenTail.next = lookingAt;
         oddTail.next = lookingAt.next;
@@ -24,6 +25,7 @@ module.exports = function(head) {
         oddTail = lookingAt;
       }
     }
+    index++;
     lookingAt = lookingAt.next;
   }
 
