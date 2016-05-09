@@ -7,7 +7,6 @@ module.exports = function(head) {
       oddTail;
 
   while (lookingAt !== null) {
-    console.log(lookingAt.value);
     if (lookingAt.value % 2 === 0) {
       if (evenTail) {
         evenTail.next = lookingAt;
