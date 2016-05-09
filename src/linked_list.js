@@ -169,15 +169,21 @@ List.prototype.removeNode = function removeNode(nodeToRemove) {
   }
 }
 
+// insert a node into the list
 List.prototype.insert = function(value, index) {
   var node = this,
       indexTracker = 0,
       leftEdgeNode;
 
   while(node !== null) {
+    // if next node is where node to insert is going to be
     if (indexTracker + 1 === index) {
+      // reference current node as being 'to the left of' insert node
       leftEdgeNode = node;
+    // if current node is where node to insert is going to be
     } else if (indexTracker === index) {
+      // set referenced node's next value to inserted node
+      // set inserted node's next value to current node
       leftEdgeNode.next = new List(value, node);
       return;
     }
@@ -187,6 +193,7 @@ List.prototype.insert = function(value, index) {
   }
 }
 
+// log node values to console
 List.prototype.printValues = function() {
   var node = this;
 
@@ -198,13 +205,19 @@ List.prototype.printValues = function() {
 
 exports.List = List;
 
+// reverse the order of the nodes
 var reverse = function(head) {
   var currentNode = head,
       previousNode,
       nextNode = currentNode.next;
 
   while(currentNode) {
+    // previous node needs to be referenced so that it can be
+    // set to the current node's next value.
     previousNode = currentNode;
+
+    // next node needs to be referenced else it will be lost
+    // when current node's next value is set to previous node
     currentNode = nextNode;
 
     if (currentNode) {
