@@ -21,20 +21,19 @@ module.exports = function(input) {
   var counter, lookingAt, instance;
   
   for (var i = 2; i <= input; i++) {
-    lookingAt = output.substr(0, 1);
+    lookingAt = output.charAt(0);
     counter = 0;
     instance = "";
 
     for (var j = 0; j <= output.length; j++) {
-      if (lookingAt === output.substr(j, 1)) {
+      if (lookingAt === output.charAt(j)) {
         counter++;
       } else {
         instance += counter.toString() + lookingAt;
         counter = 1;
-        lookingAt = output.substr(j, 1);
+        lookingAt = output.charAt(j);
       }
     }
-    console.log(instance);
     output = instance;
   }
   
