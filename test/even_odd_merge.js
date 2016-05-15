@@ -15,8 +15,6 @@ describe("Even Odd Merge", function() {
     evenOddArrays(thisList);
     evenOddArrays(thisList1);
 
-    console.log(thisList.toString());
-
     assert(thisList.equals(expectedList), 'numeric fail');
     assert(thisList1.equals(expectedList1), 'char fail');
   });
