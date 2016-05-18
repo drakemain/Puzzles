@@ -12,10 +12,8 @@
 // 13112221
 // 1113213211
 
-module.exports = function(input) {
-  if (input <= 0) {
-    return "0";
-  }
+asString = function(input) {
+  if (input <= 0) {return "0";}
 
   var output = "1";
   var counter, lookingAt, instance;
@@ -38,4 +36,55 @@ module.exports = function(input) {
   }
   
   return output;
+}
+
+exports.asString = asString;
+
+noString = function(iterations) {
+  if (iterations <= 0) {return 0;}
+
+  output = 1;
+
+  while (iterations > 1) {
+    iterations--;
+    output = generateNextNum(output);
+  }
+
+  return output;
+}
+
+exports.noString = noString;
+
+function generateNextNum(num) {
+  var onesPlaceValue, lookingAt;
+  var instance = 0;
+  var counter = 0;
+  var output = 1;
+  var place = 0;
+
+  while (num > 0) {
+    onesPlaceValue = num % 10;
+    num = (num - onesPlaceValue) / 10;
+    
+    if (!lookingAt) {
+      lookingAt = onesPlaceValue;
+      counter = 1;
+    } else if (lookingAt !== onesPlaceValue) {
+      instance = (counter * Math.pow(10, place + 1))
+        + (lookingAt * Math.pow(10, place))
+        + (instance);
+
+      place += 2;
+      lookingAt = onesPlaceValue;
+      counter = 1;
+    } else {
+      counter++;
+    }
+  }
+
+  instance = (counter * Math.pow(10, place + 1))
+    + (lookingAt * Math.pow(10, place))
+    + (instance);
+
+  return instance;
 }
