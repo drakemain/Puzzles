@@ -1,4 +1,4 @@
-module.exports = function(arr, value) {
+module.exports.array = function(arr, value) {
   var leftBound = 0,
       rightBound = arr.length - 1,
       middle = Math.floor(rightBound / 2);
