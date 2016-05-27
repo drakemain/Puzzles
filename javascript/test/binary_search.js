@@ -15,9 +15,9 @@ describe('Binary Array Search', function() {
   });
 
   it('should return false for out of bounds cases', function() {
-    assert.equal(valuesThatExist[0], false);
-    assert.equal(valuesThatExist[32], false);
-  })
+    assert.equal(valuesThatExist[0], binarySearch.array(arr, 0), 0);
+    assert.equal(valuesThatExist[32], binarySearch.array(arr, 32), 32);
+  });
 });
 
 function buildValExistsArray(arr) {
