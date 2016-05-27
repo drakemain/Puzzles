@@ -7,9 +7,6 @@ module.exports.array = function(arr, value) {
   while (leftBound <= rightBound) {
     middle = Math.floor((rightBound - leftBound) / 2) + leftBound;
 
-    console.log(leftBound, middle, rightBound);
-    console.log(value);
-
     if (arr[middle] === value) {
       return true;
 
