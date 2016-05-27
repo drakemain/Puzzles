@@ -1,27 +1,24 @@
 module.exports.array = function(arr, value) {
-  var leftBound = 0,
-      rightBound = arr.length - 1,
-      middle = Math.floor(rightBound / 2);
+  var leftBound = 0
+  , rightBound = arr.length - 1
+  , middle;
       
 
-  while (middle !== leftBound && middle !== rightBound) {
+  while (leftBound <= rightBound) {
+    middle = Math.floor((rightBound - leftBound) / 2) + leftBound;
+
+    console.log(leftBound, middle, rightBound);
+    console.log(value);
+
     if (arr[middle] === value) {
       return true;
 
     } else if (arr[middle] < value) {
-      leftBound = middle;
-      middle = Math.ceil((rightBound - leftBound) / 2) + leftBound;
+      leftBound = middle + 1;
 
     } else if (arr[middle] > value) {
-      rightBound = middle;
-      middle = Math.floor((rightBound - leftBound) / 2) + leftBound;
-    }
-
-    if (middle === 0 || middle === arr.length - 1) {
-      if (arr[middle] === value) {
-        return true;
-      }
+      rightBound = middle - 1;
     }
   }
   return false;
-}
+};
