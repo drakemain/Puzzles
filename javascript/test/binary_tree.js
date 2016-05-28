@@ -29,8 +29,6 @@ describe("Binary Tree", function() {
     tree.insert(1);
     tree.insert(0);
 
-    console.log(tree);
-
     assert(tree.contains(3), "didn't find 3");
     assert(tree.contains(8), "didn't find 8");
     assert(tree.contains(12), "didn't find 12");
