@@ -36,5 +36,9 @@ describe("Binary Tree", function() {
     assert(tree.contains(2), "didn't find 2");
     assert(tree.contains(1), "didn't find 1");
     assert(tree.contains(0), "didn't find 0");
+
+    assert(!tree.contains(-10), "found -10");
+    assert(!tree.contains(16), "found 16");
+    assert(!tree.contains(25), "found 25");
   });
 });
