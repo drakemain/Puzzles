@@ -47,12 +47,12 @@ BinaryTree.prototype.contains = function(value) {
   return false;
 };
 
-BinaryTree.prototype.mapTo = function(value) {
+BinaryTree.prototype.pathTo = function(value) {
   var lookingAt = this
-  , map = "";
+  , path = "";
 
   while (lookingAt !== null) {
-    map += lookingAt.value;
+    path += lookingAt.value;
 
     if (value === lookingAt.value) {
       break;
@@ -62,9 +62,9 @@ BinaryTree.prototype.mapTo = function(value) {
       lookingAt = lookingAt.right;
     }
 
-    map += " → ";
+    path += " → ";
   }
 
-  return map;
+  return path;
 };
 

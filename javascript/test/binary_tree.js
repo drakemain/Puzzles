@@ -42,7 +42,7 @@ describe("Binary Tree", function() {
     assert(!tree.contains(25), "found 25");
   });
 
-  it("should create a map through the tree to a specified value", function() {
+  it("should create a path through the tree to a specified value", function() {
     var tree = new BinaryTree(10);
 
     tree.insert(5);
@@ -59,9 +59,9 @@ describe("Binary Tree", function() {
     tree.insert(16);
     tree.insert(21);
 
-    assert.equal(tree.mapTo(17), "10 → 15 → 17", "17");
-    assert.equal(tree.mapTo(19), "10 → 15 → 17 → 20 → 19", "19");
-    assert.equal(tree.mapTo(16), "10 → 15 → 17 → 16", "16");
-    assert.equal(tree.mapTo(14), "10 → 15 → 12 → ", "17");
+    assert.equal(tree.pathTo(17), "10 → 15 → 17", "17");
+    assert.equal(tree.pathTo(19), "10 → 15 → 17 → 20 → 19", "19");
+    assert.equal(tree.pathTo(16), "10 → 15 → 17 → 16", "16");
+    assert.equal(tree.pathTo(14), "10 → 15 → 12 → ", "17");
   });
 });
