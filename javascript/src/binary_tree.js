@@ -55,7 +55,7 @@ BinaryTree.prototype.pathTo = function(value) {
     path += lookingAt.value;
 
     if (value === lookingAt.value) {
-      break;
+      return path;
     } else if (value < lookingAt.value) {
       lookingAt = lookingAt.left;
     } else if (value > lookingAt.value) {
@@ -65,6 +65,7 @@ BinaryTree.prototype.pathTo = function(value) {
     path += " → ";
   }
 
+  path += "∅";
   return path;
 };
 

@@ -62,6 +62,6 @@ describe("Binary Tree", function() {
     assert.equal(tree.pathTo(17), "10 → 15 → 17", "17");
     assert.equal(tree.pathTo(19), "10 → 15 → 17 → 20 → 19", "19");
     assert.equal(tree.pathTo(16), "10 → 15 → 17 → 16", "16");
-    assert.equal(tree.pathTo(14), "10 → 15 → 12 → ", "14");
+    assert.equal(tree.pathTo(14), "10 → 15 → 12 → ∅", "14");
   });
 });
