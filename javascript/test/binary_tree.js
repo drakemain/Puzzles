@@ -59,9 +59,11 @@ describe("Binary Tree", function() {
     tree.insert(16);
     tree.insert(21);
 
-    assert.equal(tree.pathTo(17), "10 → 15 → 17", "17");
-    assert.equal(tree.pathTo(19), "10 → 15 → 17 → 20 → 19", "19");
-    assert.equal(tree.pathTo(16), "10 → 15 → 17 → 16", "16");
-    assert.equal(tree.pathTo(14), "10 → 15 → 12 → ∅", "14");
+    assert.equal(tree.pathTo(17), "10 (R)→ 15 (R)→ 17", "17");
+    assert.equal(tree.pathTo(19), "10 (R)→ 15 (R)→ 17 (R)→ 20 (L)→ 19", "19");
+    assert.equal(tree.pathTo(16), "10 (R)→ 15 (R)→ 17 (L)→ 16", "16");
+    assert.equal(tree.pathTo(14), "10 (R)→ 15 (L)→ 12 (R)→ ∅", "14");
+
+    console.log(tree.pathTo(19));
   });
 });

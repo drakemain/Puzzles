@@ -58,14 +58,15 @@ BinaryTree.prototype.pathTo = function(value) {
       return path;
     } else if (value < lookingAt.value) {
       lookingAt = lookingAt.left;
+      path += " (L)";
     } else if (value > lookingAt.value) {
       lookingAt = lookingAt.right;
+      path += " (R)";
     }
 
-    path += " → ";
+    path += "→ ";
   }
 
   path += "∅";
   return path;
 };
-
