@@ -1,2 +1,8 @@
 node_modules/
-/rust/target/
+rust/target/
+c++/out/*
+
+*.bin
+
+*.sublime-workspace
+*.sublime-projectsh
