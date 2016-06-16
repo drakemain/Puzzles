@@ -13,7 +13,7 @@ public:
 
   Node(int value) {
     this->value = value;
-    next = nullptr;
+    this->next = nullptr;
   }
 
   // getters
@@ -25,5 +25,5 @@ public:
 int main() {
   Node test(1);
 
-  std::cout << test.getValue();
+  std::cout << test.getValue() << '\n';
 }
