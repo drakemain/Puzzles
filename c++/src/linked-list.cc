@@ -29,7 +29,27 @@ public:
       delete this->next;
     }
   }
-  
+
+
+  /**
+   * return all values in the list as a string.
+   */  
+  std::string toString() {
+    std::string output = "";
+    Node* lookingAt = this;
+
+    while(lookingAt != nullptr) {
+      output += std::to_string(lookingAt->value);
+
+      if (lookingAt->next != nullptr) {
+        output += " → ";
+      }
+
+      lookingAt = lookingAt->next;
+    }
+
+    return output;
+  }
 
   // getters
   int getValue() {
