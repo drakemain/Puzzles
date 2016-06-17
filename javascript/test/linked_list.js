@@ -3,8 +3,6 @@ var assert = chai.assert;
 
 var List = require('./../src/linked_list').List;
 var reverse = require('./../src/linked_list').reverse;
-var removeSecondNode = require('./../src/linked_list').removeSecondNode;
-var removeNode = require('./../src/linked_list').removeNode;
 
 describe('Linked List', function() {
   it('can be built from an array', function() {

@@ -23,7 +23,7 @@ describe("Look and Say String Method", function() {
 
 describe("Look and Say Numeric Method", function() {
   it("Should construct the correct number in the sequence", function() {
-    assert.equal(lookAndSay.noString(7), 13112221)
+    assert.equal(lookAndSay.noString(7), 13112221);
     assert.equal(lookAndSay.noString(8), 1113213211);
   });
 

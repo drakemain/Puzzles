@@ -9,7 +9,7 @@ describe('Binary Array Search', function() {
 
   it('should locate the correct value if it exists', function() {
     for (var i = valuesThatExist.length - 2; i > 0; i--) {
-      assert.equal(valuesThatExist[i], binarySearch.array(arr, i), i)
+      assert.equal(valuesThatExist[i], binarySearch.array(arr, i), i);
     }
   });
 

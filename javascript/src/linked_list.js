@@ -28,7 +28,7 @@
 function List(value, next) {
   this.value = value;
   this.next = next || null;
-};
+}
 
 // To append a new value to the collection of values represented by this linked
 // list, you simply allocate a new node to hold the value and then attach it to
@@ -96,15 +96,15 @@ List.fromArray = function(array) {
 };
 
 List.prototype.length = function() {
-  var node = this,
-      counter = 0;
+  var node = this
+  , counter = 0;
 
   while (node !== null) {
     counter++;
     node = node.next;
   }
   return counter;
-}
+};
 
 // Helper function to convert a linked list to a string, so you can do e.g.
 // console.log(list)
@@ -145,9 +145,9 @@ List.prototype.appendArray = function(array) {
 };
 
 List.prototype.removeNode = function removeNode(nodeToRemove) {
-  var currentNode = this,
-      counter = 0,
-      leftEdgeNode;
+  var currentNode = this
+  , counter = 0
+  , leftEdgeNode;
 
   while(currentNode !== null) {
     
@@ -167,13 +167,13 @@ List.prototype.removeNode = function removeNode(nodeToRemove) {
     currentNode = currentNode.next;
     counter++;
   }
-}
+};
 
 // insert a node into the list
 List.prototype.insert = function(value, index) {
-  var node = this,
-      indexTracker = 0,
-      leftEdgeNode;
+  var node = this
+  , indexTracker = 0
+  , leftEdgeNode;
 
   while(node !== null) {
     // if next node is where node to insert is going to be
@@ -191,7 +191,7 @@ List.prototype.insert = function(value, index) {
     node = node.next;
     indexTracker++;
   }
-}
+};
 
 // log node values to console
 List.prototype.printValues = function() {
@@ -201,15 +201,15 @@ List.prototype.printValues = function() {
     console.log(node.value);
     node = node.next;
   }
-}
+};
 
 exports.List = List;
 
 // reverse the order of the nodes
 var reverse = function(head) {
-  var currentNode = head,
-      previousNode,
-      nextNode = currentNode.next;
+  var currentNode = head
+  , previousNode
+  , nextNode = currentNode.next;
 
   while(currentNode) {
     // previous node needs to be referenced so that it can be
@@ -228,6 +228,6 @@ var reverse = function(head) {
 
   head.next = null;
   return previousNode;
-}
+};
 
 exports.reverse = reverse;
