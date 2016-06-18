@@ -10,7 +10,7 @@ private:
 public:
   //constructors
   Node() {
-    next = nullptr;
+    this->next = nullptr;
   };
 
   Node(int value) {
@@ -39,9 +39,14 @@ public:
     return this->next;
   }
 
+
   // setters
   void setNext(int value) {
     this->next = new Node(value);
+  }
+
+  void setNextNode(Node* node) {
+    this->next = node;
   }
 };
 
@@ -59,10 +64,14 @@ public:
   }
 
   LinkedList(std::vector<int> values) {
+    if (values.size() < 1) {
+      throw "Can't build linked list from empty vector.";
+    }
+
     this->head = new Node(values[0]);
     Node* lookingAt = head;
 
-    for(unsigned int i = 1; i < values.size(); i++) {
+    for (unsigned int i = 1; i < values.size(); i++) {
       lookingAt->setNext(values[i]);
       lookingAt = lookingAt->getNext();
     }
@@ -70,19 +79,50 @@ public:
 
 
   /**
-   * append a value to the list
+   * append a node to the list
    * 
-   * @param int the value to be appeneded
+   * @param int   the value to be appeneded
    */
   void append(int value) {
-    Node* lookingAt = head;
+    Node* lookingAt = this->head;
 
-    while(lookingAt->getNext() != nullptr) {
-      std::cout << lookingAt->getValue();
+    while (lookingAt->getNext() != nullptr) {
       lookingAt = lookingAt->getNext();
     }
 
     lookingAt->setNext(value);
+  }
+
+  /**
+   * insert a node into the list
+   *
+   * @param int   the value to insert
+   * @param int   the location to insert to
+   */
+  void insert(int value, int index) {
+    if (index == 0) {
+      this->head = new Node(value, this->head);
+      return;
+    }
+
+    Node* lookingAt = this->head;
+    Node* leftOfInsert;
+    int currentIndex = 0;
+
+    while (lookingAt != nullptr && currentIndex < index) {
+      leftOfInsert = lookingAt;
+      lookingAt = lookingAt->getNext();
+
+      currentIndex++;
+    }
+
+    if (currentIndex == index) {
+      leftOfInsert->setNext(value);
+
+      if (lookingAt != nullptr) {
+        leftOfInsert->getNext()->setNextNode(lookingAt);
+      }
+    }
   }
 
   /**
@@ -94,7 +134,7 @@ public:
     std::string output = "";
     Node* lookingAt = head;
 
-    while(lookingAt != nullptr) {
+    while (lookingAt != nullptr) {
       output += std::to_string(lookingAt->getValue());
 
       if (lookingAt->getNext() != nullptr) {
@@ -110,10 +150,15 @@ public:
 
 int main() {
   LinkedList list = LinkedList(new Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr)))))));
+  LinkedList list1 = LinkedList(std::vector<int> {0, 1, 3, 4, 6});
+
   list.append(6);
   list.append(128);
+  list.insert(8, 8);
 
-  LinkedList list1 = LinkedList(std::vector<int> {0, 1, 2, 3, 4, 5});
+  list1.insert(2, 2);
+  list1.insert(5, 5);
+  list1.insert(10, 0);
 
   std::cout << list.toString() << std::endl
     << list1.toString() << std::endl;
