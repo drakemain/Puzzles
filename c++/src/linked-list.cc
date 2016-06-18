@@ -58,6 +58,16 @@ public:
     this->head = node;
   }
 
+  LinkedList(std::vector<int> values) {
+    this->head = new Node(values[0]);
+    Node* lookingAt = head;
+
+    for(unsigned int i = 1; i < values.size(); i++) {
+      lookingAt->setNext(values[i]);
+      lookingAt = lookingAt->getNext();
+    }
+  }
+
 
   /**
    * append a value to the list
@@ -100,9 +110,11 @@ public:
 
 int main() {
   LinkedList list = LinkedList(new Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr)))))));
-
   list.append(6);
   list.append(128);
 
-  std::cout << list.toString() << std::endl;
+  LinkedList list1 = LinkedList(std::vector<int> {0, 1, 2, 3, 4, 5});
+
+  std::cout << list.toString() << std::endl
+    << list1.toString() << std::endl;
 }
