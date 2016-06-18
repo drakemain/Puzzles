@@ -30,36 +30,54 @@ public:
     }
   }
 
-
-  /**
-   * return all values in the list as a string.
-   */  
-  std::string toString() {
-    std::string output = "";
-    Node* lookingAt = this;
-
-    while(lookingAt != nullptr) {
-      output += std::to_string(lookingAt->value);
-
-      if (lookingAt->next != nullptr) {
-        output += " → ";
-      }
-
-      lookingAt = lookingAt->next;
-    }
-
-    return output;
-  }
-
   // getters
   int getValue() {
     return this->value;
   }
+
+  Node* getNext() {
+    return this->next;
+  }
 };
 
+class LinkedList {
+private:
+  Node* head;
+
+public:
+  LinkedList() {
+    this->head = new Node();
+  }
+
+  LinkedList(Node* node) {
+    this->head = node;
+  }
+
+
+  /**
+  * return all values in the list as a string.
+  */
+  std::string toString() {
+    std::string output = "";
+    Node* lookingAt = head;
+
+    while(lookingAt != nullptr) {
+      output += std::to_string(lookingAt->getValue());
+
+      if (lookingAt->getNext() != nullptr) {
+        output += " → ";
+      }
+
+      lookingAt = lookingAt->getNext();
+    }
+
+    return output;
+  }
+};
 
 int main() {
-  Node heapList = Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr))))));
+  Node nodes = Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr))))));
+  LinkedList list = LinkedList(&nodes);
 
-  std::cout << heapList.toString() << std::endl;
+  std::cout << list.toString() << std::endl;
 }
