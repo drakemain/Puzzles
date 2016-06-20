@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
 
 class Node {
 private:
@@ -77,6 +78,33 @@ public:
     }
   }
 
+  /**
+   * compares to another list to determine
+   * if lists are equal
+   * 
+   * @param Node*   list to compare to
+   * @return bool   true if lists are euqal
+   */
+  bool isEqual(LinkedList* list) {
+    Node* lookingAt = this->head;
+    Node* compareTo = list->head;
+
+    while (lookingAt != nullptr && compareTo != nullptr) {
+      if (lookingAt->getValue() != compareTo->getValue()) {
+        return false;
+      }
+
+      lookingAt = lookingAt->getNext();
+      compareTo = compareTo->getNext();
+    }
+
+    if (lookingAt || compareTo) {
+      // lists are different length
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   /**
    * append a node to the list
@@ -150,16 +178,19 @@ public:
 
 int main() {
   LinkedList list = LinkedList(new Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr)))))));
-  LinkedList list1 = LinkedList(std::vector<int> {0, 1, 3, 4, 6});
+  LinkedList list1 = LinkedList(std::vector<int> {0, 1, 2, 3, 4, 5});
+
+  assert(list.isEqual(&list1));
 
   list.append(6);
-  list.append(128);
-  list.insert(8, 8);
+  assert(!list.isEqual(&list1));
 
-  list1.insert(2, 2);
-  list1.insert(5, 5);
-  list1.insert(10, 0);
+  list1.append(6);
+  assert(list.isEqual(&list1));
 
-  std::cout << list.toString() << std::endl
-    << list1.toString() << std::endl;
+  list.insert(10, 4);
+
+  assert(!list.isEqual(&list1));
+
+  std::cout << "All tests passed." << std::endl;
 }
