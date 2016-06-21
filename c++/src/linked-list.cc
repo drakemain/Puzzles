@@ -174,6 +174,31 @@ public:
 
     return output;
   }
+
+  void delete(int value) {
+    if (this->head == nullptr) {
+      return;
+    } else if (this->head.getValue() == value) {
+      this->head = this->head.getNext();
+    }
+
+    Node* lookingAt = this->head.getNext();
+    Node* previousNode = this->head;
+
+    while (lookingAt != nullptr) {
+      if (lookingAt->getValue() == value) {
+        if (lookingAt->getNext() != nullptr) {
+          previousNode->setNext(lookingAt->getNext());
+        } else {
+          previousNode.setNext(nullptr);
+        }
+
+        return;
+      }
+
+      lookingAt = lookingAt.getNext();
+    }
+  };
 };
 
 int main() {
@@ -189,8 +214,10 @@ int main() {
   assert(list.isEqual(&list1));
 
   list.insert(10, 4);
-
   assert(!list.isEqual(&list1));
+
+  list.delete(10);
+  assert(list.isEqual(&list1));
 
   std::cout << "All tests passed." << std::endl;
 }
