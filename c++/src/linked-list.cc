@@ -175,30 +175,31 @@ public:
     return output;
   }
 
-  void delete(int value) {
+  void deleteValue(int value) {
     if (this->head == nullptr) {
       return;
-    } else if (this->head.getValue() == value) {
-      this->head = this->head.getNext();
+    } else if (this->head->getValue() == value) {
+      this->head = this->head->getNext();
     }
 
-    Node* lookingAt = this->head.getNext();
+    Node* lookingAt = this->head->getNext();
     Node* previousNode = this->head;
 
     while (lookingAt != nullptr) {
       if (lookingAt->getValue() == value) {
         if (lookingAt->getNext() != nullptr) {
-          previousNode->setNext(lookingAt->getNext());
+          previousNode->setNextNode(lookingAt->getNext());
         } else {
-          previousNode.setNext(nullptr);
+          previousNode->setNextNode(nullptr);
         }
 
         return;
       }
 
-      lookingAt = lookingAt.getNext();
+      previousNode = lookingAt->getNext();
+      lookingAt = lookingAt->getNext();
     }
-  };
+  }
 };
 
 int main() {
@@ -216,8 +217,13 @@ int main() {
   list.insert(10, 4);
   assert(!list.isEqual(&list1));
 
-  list.delete(10);
+  std::cout << list.toString() << std::endl << list1.toString() << std::endl;
+
+  list.deleteValue(10);
+  std::cout << std::endl << list.toString() << std::endl << list1.toString() << std::endl;
   assert(list.isEqual(&list1));
+
+
 
   std::cout << "All tests passed." << std::endl;
 }
