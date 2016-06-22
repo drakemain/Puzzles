@@ -10,10 +10,6 @@ private:
 
 public:
   //constructors
-  Node() {
-    this->next = nullptr;
-  };
-
   Node(int value) {
     this->value = value;
     this->next = nullptr;
@@ -56,8 +52,8 @@ private:
   Node* head;
 
 public:
-  LinkedList() {
-    this->head = new Node();
+  LinkedList(int value) {
+    this->head = new Node(value);
   }
 
   LinkedList(Node* node) {
@@ -210,6 +206,7 @@ public:
 int main() {
   LinkedList list = LinkedList(new Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr)))))));
   LinkedList list1 = LinkedList(std::vector<int> {0, 1, 2, 3, 4, 5});
+  LinkedList list2 = LinkedList(1);
 
   assert(list.isEqual(&list1));
 
@@ -222,13 +219,8 @@ int main() {
   list.insert(10, 4);
   assert(!list.isEqual(&list1));
 
-  std::cout << list.toString() << std::endl << list1.toString() << std::endl;
-
   list.deleteValue(10);
-  std::cout << std::endl << list.toString() << std::endl << list1.toString() << std::endl;
   assert(list.isEqual(&list1));
-
-
 
   std::cout << "All tests passed." << std::endl;
 }
