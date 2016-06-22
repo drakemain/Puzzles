@@ -175,6 +175,11 @@ public:
     return output;
   }
 
+  /**
+   * deletes the first occurence of the input value
+   * 
+   * @param value   the value to delete from the list
+   */
   void deleteValue(int value) {
     if (this->head == nullptr) {
       return;
@@ -196,7 +201,7 @@ public:
         return;
       }
 
-      previousNode = lookingAt->getNext();
+      previousNode = lookingAt;
       lookingAt = lookingAt->getNext();
     }
   }
