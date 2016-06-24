@@ -3,19 +3,20 @@
 #include <vector>
 #include <cassert>
 
+template <class T>
 class Node {
 private:
-  int value;
+  T value;
   Node* next;
 
 public:
   //constructors
-  Node(int value) {
+  Node(T value) {
     this->value = value;
     this->next = nullptr;
   }
 
-  Node(int value, Node *next) {
+  Node(T value, Node *next) {
     this->value = value;
     this->next = next;
   }
@@ -28,7 +29,7 @@ public:
   }
 
   // getters
-  int getValue() {
+  T getValue() {
     return this->value;
   }
 
@@ -38,8 +39,8 @@ public:
 
 
   // setters
-  void setNext(int value) {
-    this->next = new Node(value);
+  void setNext(T value) {
+    this->next = new Node<T>(value);
   }
 
   void setNextNode(Node* node) {
@@ -47,26 +48,27 @@ public:
   }
 };
 
+template <class T>
 class LinkedList {
 private:
-  Node* head;
+  Node<T>* head;
 
 public:
-  LinkedList(int value) {
-    this->head = new Node(value);
+  LinkedList(T value) {
+    this->head = new Node<T>(value);
   }
 
-  LinkedList(Node* node) {
+  LinkedList(Node<T>* node) {
     this->head = node;
   }
 
-  LinkedList(std::vector<int> values) {
+  LinkedList(std::vector<T> values) {
     if (values.size() < 1) {
       throw "Can't build linked list from empty vector.";
     }
 
-    this->head = new Node(values[0]);
-    Node* lookingAt = head;
+    this->head = new Node<T>(values[0]);
+    Node<T>* lookingAt = head;
 
     for (unsigned int i = 1; i < values.size(); i++) {
       lookingAt->setNext(values[i]);
@@ -82,8 +84,8 @@ public:
    * @return bool   true if lists are euqal
    */
   bool isEqual(LinkedList* list) {
-    Node* lookingAt = this->head;
-    Node* compareTo = list->head;
+    Node<T>* lookingAt = this->head;
+    Node<T>* compareTo = list->head;
 
     while (lookingAt != nullptr && compareTo != nullptr) {
       if (lookingAt->getValue() != compareTo->getValue()) {
@@ -107,8 +109,8 @@ public:
    * 
    * @param int   the value to be appeneded
    */
-  void append(int value) {
-    Node* lookingAt = this->head;
+  void append(T value) {
+    Node<T>* lookingAt = this->head;
 
     while (lookingAt->getNext() != nullptr) {
       lookingAt = lookingAt->getNext();
@@ -123,14 +125,14 @@ public:
    * @param int   the value to insert
    * @param int   the location to insert to
    */
-  void insert(int value, int index) {
+  void insert(T value, int index) {
     if (index == 0) {
-      this->head = new Node(value, this->head);
+      this->head = new Node<T>(value, this->head);
       return;
     }
 
-    Node* lookingAt = this->head;
-    Node* leftOfInsert;
+    Node<T>* lookingAt = this->head;
+    Node<T>* leftOfInsert;
     int currentIndex = 0;
 
     while (lookingAt != nullptr && currentIndex < index) {
@@ -150,25 +152,22 @@ public:
   }
 
   /**
-  * return all values in the list as a string
-  * 
-  * @return string built from values in the list
+  * print the contents of the list to ostream
   */
-  std::string toString() {
-    std::string output = "";
-    Node* lookingAt = head;
+  void printTo(std::ostream &os) {
+    Node<T>* lookingAt = head;
 
     while (lookingAt != nullptr) {
-      output += std::to_string(lookingAt->getValue());
+      os << lookingAt->getValue();
 
       if (lookingAt->getNext() != nullptr) {
-        output += " → ";
+        os << " → ";
       }
 
       lookingAt = lookingAt->getNext();
     }
 
-    return output;
+    os << std::endl;
   }
 
   /**
@@ -176,15 +175,15 @@ public:
    * 
    * @param value   the value to delete from the list
    */
-  void deleteValue(int value) {
+  void deleteValue(T value) {
     if (this->head == nullptr) {
       return;
     } else if (this->head->getValue() == value) {
       this->head = this->head->getNext();
     }
 
-    Node* lookingAt = this->head->getNext();
-    Node* previousNode = this->head;
+    Node<T>* lookingAt = this->head->getNext();
+    Node<T>* previousNode = this->head;
 
     while (lookingAt != nullptr) {
       if (lookingAt->getValue() == value) {
@@ -205,11 +204,11 @@ public:
 
 int main() {
   // construct a list using manually linked nodes
-  LinkedList list = LinkedList(new Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr)))))));
+  LinkedList<int>list = LinkedList<int>(new Node<int>(0, new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, nullptr)))))));
   // construct a list using a vector
-  LinkedList list1 = LinkedList(std::vector<int> {0, 1, 2, 3, 4, 5});
+  LinkedList<int>list1 = LinkedList<int>(std::vector<int> {0, 1, 2, 3, 4, 5});
   // construct a list with a single initial value and inserting/appending
-  LinkedList list2 = LinkedList(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
+  LinkedList<int>list2 = LinkedList<int>(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
 
   // make sure all 3 lists are equal
   assert(list.isEqual(&list1));
@@ -237,5 +236,11 @@ int main() {
   list.deleteValue(10);
   assert(list.isEqual(&list1));
 
-  std::cout << "All tests passed." << std::endl;
+  std::cout << "All int list tests passed." << std::endl;
+
+  LinkedList<std::string> stringList = LinkedList<std::string>("Hello");
+  stringList.append("World.");
+
+  stringList.printTo(std::cout);
+  list.printTo(std::cout);
 }
