@@ -204,21 +204,36 @@ public:
 };
 
 int main() {
+  // construct a list using manually linked nodes
   LinkedList list = LinkedList(new Node(0, new Node(1, new Node(2, new Node(3, new Node(4, new Node(5, nullptr)))))));
+  // construct a list using a vector
   LinkedList list1 = LinkedList(std::vector<int> {0, 1, 2, 3, 4, 5});
-  LinkedList list2 = LinkedList(1);
+  // construct a list with a single initial value and inserting/appending
+  LinkedList list2 = LinkedList(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
 
+  // make sure all 3 lists are equal
   assert(list.isEqual(&list1));
+  assert(list.isEqual(&list2));
 
+  // test append method
   list.append(6);
   assert(!list.isEqual(&list1));
-
   list1.append(6);
   assert(list.isEqual(&list1));
 
+  // test insert method
   list.insert(10, 4);
   assert(!list.isEqual(&list1));
 
+  // test deleteValue method
+  list.deleteValue(10);
+  assert(list.isEqual(&list1));
+
+  // test deleteValue edge cases (beginning and end of list)
+  list.insert(10, 0);
+  list.deleteValue(10);
+  assert(list.isEqual(&list1));
+  list.append(10);
   list.deleteValue(10);
   assert(list.isEqual(&list1));
 
