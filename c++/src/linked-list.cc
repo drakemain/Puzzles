@@ -238,9 +238,13 @@ int main() {
 
   std::cout << "All int list tests passed." << std::endl;
 
-  LinkedList<std::string> stringList = LinkedList<std::string>("Hello");
-  stringList.append("World.");
+  LinkedList<std::string> stringList = LinkedList<std::string>("Hello"); stringList.append("World.");
+  LinkedList<std::string> stringList1 = LinkedList<std::string>(new Node<std::string>("Hello", new Node<std::string>("World.")));
 
-  stringList.printTo(std::cout);
-  list.printTo(std::cout);
+  assert(stringList.isEqual(&stringList1));
+
+  stringList.insert(", ", 1);
+  assert(!stringList.isEqual(&stringList1));
+
+  std::cout << "All string list tests passed." << std::endl;
 }
