@@ -39,11 +39,7 @@ public:
 
 
   // setters
-  void setNext(T value) {
-    this->next = new Node<T>(value);
-  }
-
-  void setNextNode(Node* node) {
+  void setNext(Node* node) {
     this->next = node;
   }
 };
@@ -71,7 +67,7 @@ public:
     Node<T>* lookingAt = head;
 
     for (unsigned int i = 1; i < values.size(); i++) {
-      lookingAt->setNext(values[i]);
+      lookingAt->setNext(new Node<T>(values[i]));
       lookingAt = lookingAt->getNext();
     }
   }
@@ -116,7 +112,7 @@ public:
       lookingAt = lookingAt->getNext();
     }
 
-    lookingAt->setNext(value);
+    lookingAt->setNext(new Node<T>(value));
   }
 
   /**
@@ -143,10 +139,10 @@ public:
     }
 
     if (currentIndex == index) {
-      leftOfInsert->setNext(value);
+      leftOfInsert->setNext(new Node<T>(value));
 
       if (lookingAt != nullptr) {
-        leftOfInsert->getNext()->setNextNode(lookingAt);
+        leftOfInsert->getNext()->setNext(lookingAt);
       }
     }
   }
@@ -188,9 +184,9 @@ public:
     while (lookingAt != nullptr) {
       if (lookingAt->getValue() == value) {
         if (lookingAt->getNext() != nullptr) {
-          previousNode->setNextNode(lookingAt->getNext());
+          previousNode->setNext(lookingAt->getNext());
         } else {
-          previousNode->setNextNode(nullptr);
+          previousNode->setNext(nullptr);
         }
 
         return;
