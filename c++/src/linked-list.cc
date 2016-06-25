@@ -92,12 +92,8 @@ public:
       compareTo = compareTo->getNext();
     }
 
-    if (lookingAt || compareTo) {
-      // lists are different length
-      return false;
-    } else {
-      return true;
-    }
+    // return false if lists are different length
+    return !(lookingAt || compareTo);
   }
 
   /**
