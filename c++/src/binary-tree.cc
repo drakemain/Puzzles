@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <cassert>
 
 template <typename T>
@@ -22,31 +23,31 @@ public:
     this->root->right = nullptr;
   }
 
-  std::string pathTo(T value) {
+  std::string pathTo(T value, std::ostream &os) {
     Node<T>* lookingAt = root;
     std::string output = "";
 
     while (true) {
       if (lookingAt == nullptr) {
-        output += "∅";
+        os << "∅";
         break;
       }
 
-      output += std::to_string(lookingAt->value);
+      os << std::to_string(lookingAt->value);
 
       if (lookingAt->value == value) {
         break; 
       }
 
       if (value > lookingAt->value) {
-        output += " (R)";
+        os << " (R)";
         lookingAt = lookingAt->right;
       } else if (value < lookingAt->value) {
-        output += " (L)";
+        os << " (L)";
         lookingAt = lookingAt->left;
       }
 
-      output += "→ ";
+      os << "→ ";
     }
 
     return output;
@@ -86,9 +87,19 @@ public:
 int main() {
   Tree<int> tree = Tree<int>(1); tree.insert(0); tree.insert(2); tree.insert(5); tree.insert(4);
 
-  assert(tree.pathTo(4) == "1 (R)→ 2 (R)→ 5 (L)→ 4");
-  assert(tree.pathTo(6) == "1 (R)→ 2 (R)→ 5 (R)→ ∅");
-  assert(tree.pathTo(0) == "1 (L)→ 0");
+  std::ostringstream pathString;
+
+  tree.pathTo(4, pathString);
+  assert(pathString.str() == "1 (R)→ 2 (R)→ 5 (L)→ 4");
+  pathString.str("");
+
+  tree.pathTo(6, pathString);
+  assert(pathString.str() == "1 (R)→ 2 (R)→ 5 (R)→ ∅");
+  pathString.str("");
+
+  tree.pathTo(0, pathString);
+  assert(pathString.str() == "1 (L)→ 0");
+  pathString.str("");
 
   std::cout << "All int binary tree tests passed." << std::endl;
 }
