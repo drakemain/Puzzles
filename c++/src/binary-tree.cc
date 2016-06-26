@@ -23,9 +23,8 @@ public:
     this->root->right = nullptr;
   }
 
-  std::string pathTo(T value, std::ostream &os) {
+  void pathTo(T value, std::ostream &os) {
     Node<T>* lookingAt = root;
-    std::string output = "";
 
     while (true) {
       if (lookingAt == nullptr) {
@@ -33,7 +32,7 @@ public:
         break;
       }
 
-      os << std::to_string(lookingAt->value);
+      os << lookingAt->value;
 
       if (lookingAt->value == value) {
         break; 
@@ -49,8 +48,6 @@ public:
 
       os << "→ ";
     }
-
-    return output;
   }
 
   void insert(T value) {
