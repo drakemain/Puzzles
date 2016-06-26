@@ -99,4 +99,12 @@ int main() {
   pathString.str("");
 
   std::cout << "All int binary tree tests passed." << std::endl;
+
+  Tree<std::string> stringTree = Tree<std::string>("Hello"); stringTree.insert("World");
+
+  stringTree.pathTo("World", pathString); 
+
+  assert(pathString.str() == "Hello (R)→ World");
+
+  std::cout << "All string binary tree tests passed." << std::endl;
 }
