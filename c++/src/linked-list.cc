@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <cassert>
@@ -71,6 +72,8 @@ public:
       lookingAt = lookingAt->getNext();
     }
   }
+
+  ~LinkedList() {}
 
   /**
    * compares to another list to determine
@@ -158,8 +161,6 @@ public:
 
       lookingAt = lookingAt->getNext();
     }
-
-    os << std::endl;
   }
 
   /**
@@ -168,9 +169,12 @@ public:
    * @param value   the value to delete from the list
    */
   void deleteValue(T value) {
+    Node<T>* nodeToDelete;
+
     if (this->head == nullptr) {
       return;
     } else if (this->head->getValue() == value) {
+      nodeToDelete = this->head;
       this->head = this->head->getNext();
     }
 
@@ -191,10 +195,16 @@ public:
       previousNode = lookingAt;
       lookingAt = lookingAt->getNext();
     }
+
+
+    // MEMORY LEAK
+    std::cout << nodeToDelete->getValue() << std::endl;
   }
 };
 
 int main() {
+  std::ostringstream listString;
+
   // construct a list using manually linked nodes
   LinkedList<int>list = LinkedList<int>(new Node<int>(0, new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, nullptr)))))));
   // construct a list using a vector
@@ -202,31 +212,49 @@ int main() {
   // construct a list with a single initial value and inserting/appending
   LinkedList<int>list2 = LinkedList<int>(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
 
+  // ensure list contains correct values
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5"); listString.str("");
+
   // make sure all 3 lists are equal
   assert(list.isEqual(&list1));
   assert(list.isEqual(&list2));
 
   // test append method
   list.append(6);
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
   assert(!list.isEqual(&list1));
   list1.append(6);
   assert(list.isEqual(&list1));
 
   // test insert method
   list.insert(10, 4);
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 10 → 4 → 5 → 6"); listString.str("");
   assert(!list.isEqual(&list1));
 
   // test deleteValue method
   list.deleteValue(10);
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
   assert(list.isEqual(&list1));
 
-  // test deleteValue edge cases (beginning and end of list)
+  // test insert() edge case (beginning of list)
   list.insert(10, 0);
+  list.printTo(listString);
+  assert(listString.str() == "10 → 0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
+  list.insert(20, 8);
+  list.printTo(listString);
+  assert(listString.str() == "10 → 0 → 1 → 2 → 3 → 4 → 5 → 6 → 20"); listString.str("");
+
+  // test deleteValue edge cases (beginning and end of list)
   list.deleteValue(10);
-  assert(list.isEqual(&list1));
-  list.append(10);
-  list.deleteValue(10);
-  assert(list.isEqual(&list1));
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6 → 20"); listString.str("");
+  list.deleteValue(20);
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
 
   std::cout << "All int list tests passed." << std::endl;
 
