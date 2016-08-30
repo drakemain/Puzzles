@@ -24,9 +24,9 @@ public:
 
   // destructor
   ~Node() {
-    if (this->next) {
-      delete this->next;
-    }
+    // if (this->next) {
+    //   delete this->next;
+    // }
   }
 
   // getters
@@ -168,37 +168,37 @@ public:
    * 
    * @param value   the value to delete from the list
    */
-  void deleteValue(T value) {
-    Node<T>* nodeToDelete;
-
+  void deleteByValue(T value) {
     if (this->head == nullptr) {
       return;
-    } else if (this->head->getValue() == value) {
-      nodeToDelete = this->head;
-      this->head = this->head->getNext();
     }
 
-    Node<T>* lookingAt = this->head->getNext();
-    Node<T>* previousNode = this->head;
+    Node<T>* lookingAt = this->head;
+    Node<T>* nodeToDelete = nullptr;
+    Node<T>* previousNode = nullptr;
 
-    while (lookingAt != nullptr) {
-      if (lookingAt->getValue() == value) {
-        if (lookingAt->getNext() != nullptr) {
-          previousNode->setNext(lookingAt->getNext());
-        } else {
-          previousNode->setNext(nullptr);
-        }
-
-        return;
+    while (true) {
+      // find the node containing the value to delete
+      
+      if (lookingAt == nullptr) {return;}
+      else if (lookingAt->getValue() == value) {
+        nodeToDelete = lookingAt;
+        break;
       }
 
       previousNode = lookingAt;
       lookingAt = lookingAt->getNext();
     }
 
+    if (nodeToDelete) {
+      if (previousNode) {
+        previousNode->setNext(nodeToDelete->getNext());
+      } else {
+        this->head = nodeToDelete->getNext();
+      }
 
-    // MEMORY LEAK
-    std::cout << nodeToDelete->getValue() << std::endl;
+      delete nodeToDelete;
+    }
   }
 };
 
@@ -225,6 +225,7 @@ int main() {
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
   assert(!list.isEqual(list1));
+
   list1.append(6);
   assert(list.isEqual(list1));
 
@@ -234,8 +235,8 @@ int main() {
   assert(listString.str() == "0 → 1 → 2 → 3 → 10 → 4 → 5 → 6"); listString.str("");
   assert(!list.isEqual(list1));
 
-  // test deleteValue method
-  list.deleteValue(10);
+  // test deleteByValue method
+  list.deleteByValue(10);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
   assert(list.isEqual(list1));
@@ -244,15 +245,21 @@ int main() {
   list.insert(10, 0);
   list.printTo(listString);
   assert(listString.str() == "10 → 0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
+
   list.insert(20, 8);
   list.printTo(listString);
   assert(listString.str() == "10 → 0 → 1 → 2 → 3 → 4 → 5 → 6 → 20"); listString.str("");
 
-  // test deleteValue edge cases (beginning and end of list)
-  list.deleteValue(10);
+  // test deleteByValue edge cases (beginning and end of list, value DNE)
+  list.deleteByValue(10);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6 → 20"); listString.str("");
-  list.deleteValue(20);
+
+  list.deleteByValue(20);
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
+
+  list.deleteByValue(100);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
 
