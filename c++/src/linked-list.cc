@@ -82,9 +82,9 @@ public:
    * @param Node*   list to compare to
    * @return bool   true if lists are euqal
    */
-  bool isEqual(LinkedList* list) {
+  bool isEqual(LinkedList &list) {
     Node<T>* lookingAt = this->head;
-    Node<T>* compareTo = list->head;
+    Node<T>* compareTo = list.head;
 
     while (lookingAt != nullptr && compareTo != nullptr) {
       if (lookingAt->getValue() != compareTo->getValue()) {
@@ -217,28 +217,28 @@ int main() {
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5"); listString.str("");
 
   // make sure all 3 lists are equal
-  assert(list.isEqual(&list1));
-  assert(list.isEqual(&list2));
+  assert(list.isEqual(list1));
+  assert(list.isEqual(list2));
 
   // test append method
   list.append(6);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
-  assert(!list.isEqual(&list1));
+  assert(!list.isEqual(list1));
   list1.append(6);
-  assert(list.isEqual(&list1));
+  assert(list.isEqual(list1));
 
   // test insert method
   list.insert(10, 4);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 10 → 4 → 5 → 6"); listString.str("");
-  assert(!list.isEqual(&list1));
+  assert(!list.isEqual(list1));
 
   // test deleteValue method
   list.deleteValue(10);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
-  assert(list.isEqual(&list1));
+  assert(list.isEqual(list1));
 
   // test insert() edge case (beginning of list)
   list.insert(10, 0);
@@ -261,10 +261,10 @@ int main() {
   LinkedList<std::string> stringList = LinkedList<std::string>("Hello"); stringList.append("World.");
   LinkedList<std::string> stringList1 = LinkedList<std::string>(new Node<std::string>("Hello", new Node<std::string>("World.")));
 
-  assert(stringList.isEqual(&stringList1));
+  assert(stringList.isEqual(stringList1));
 
   stringList.insert(", ", 1);
-  assert(!stringList.isEqual(&stringList1));
+  assert(!stringList.isEqual(stringList1));
 
   std::cout << "All string list tests passed." << std::endl;
 }
