@@ -21,7 +21,6 @@ public:
 
   // destructor
   ~Node() {
-    std::cout << "Deleting node containing value: " << value << std::endl;
     delete this->next;
   }
 
@@ -72,7 +71,6 @@ public:
 
   ~LinkedList() {
     delete this->head;
-    std::cout << "Destroying list.. " << std::endl;
   }
 
   /**
