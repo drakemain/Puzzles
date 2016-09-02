@@ -4,6 +4,8 @@
 #include <vector>
 #include <cassert>
 
+void test_destructors();
+
 template <class T>
 class Node {
 private:
@@ -12,12 +14,23 @@ private:
 
 public:
   //constructors
-  Node(T value) : value(value), next(nullptr) {}
+  Node(T value) {
+    this->value = value;
+    this->next = nullptr;
+  }
 
-  Node(T value, Node *next) : value(value), next(next) {}
+  Node(T value, Node *next) {
+    this->value = value;
+    this->next = next;
+  }
+  
 
   // destructor
-  ~Node() {}
+  ~Node() {
+    std::cout << "Deleting node containing value: " << value << std::endl;
+    delete this->next;
+  }
+
 
   // getters
   T getValue() {
@@ -63,7 +76,10 @@ public:
     }
   }
 
-  ~LinkedList() {}
+  ~LinkedList() {
+    delete this->head;
+    std::cout << "Destroying list.. " << std::endl;
+  }
 
   /**
    * compares to another list to determine
@@ -180,11 +196,14 @@ public:
       this->head = lookingAt->getNext();
     }
 
+    lookingAt->setNext(nullptr);
     delete lookingAt;
   }
 };
 
 int main() {
+  test_destructors();
+
   std::ostringstream listString;
 
   // construct a list using manually linked nodes
@@ -256,4 +275,10 @@ int main() {
   assert(!stringList.isEqual(stringList1));
 
   std::cout << "All string list tests passed." << std::endl;
+}
+
+void test_destructors() {
+  LinkedList<int>list = LinkedList<int>(std::vector<int> {1, 2, 3});
+
+
 }
