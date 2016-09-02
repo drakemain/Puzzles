@@ -174,31 +174,23 @@ public:
     }
 
     Node<T>* lookingAt = this->head;
-    Node<T>* nodeToDelete = nullptr;
     Node<T>* previousNode = nullptr;
 
-    while (true) {
+    while (lookingAt->getValue() != value) {
       // find the node containing the value to delete
-      
-      if (lookingAt == nullptr) {return;}
-      else if (lookingAt->getValue() == value) {
-        nodeToDelete = lookingAt;
-        break;
-      }
-
       previousNode = lookingAt;
       lookingAt = lookingAt->getNext();
+
+      if (lookingAt == nullptr) {return;}
     }
 
-    if (nodeToDelete) {
-      if (previousNode) {
-        previousNode->setNext(nodeToDelete->getNext());
-      } else {
-        this->head = nodeToDelete->getNext();
-      }
-
-      delete nodeToDelete;
+    if (previousNode) {
+      previousNode->setNext(lookingAt->getNext());
+    } else {
+      this->head = lookingAt->getNext();
     }
+
+    delete lookingAt;
   }
 };
 
