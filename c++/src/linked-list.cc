@@ -47,13 +47,9 @@ private:
   Node<T>* head;
 
 public:
-  LinkedList(T value) {
-    this->head = new Node<T>(value);
-  }
+  LinkedList(T value) : head(new Node<T>(value)) {}
 
-  LinkedList(Node<T>* node) {
-    this->head = node;
-  }
+  LinkedList(Node<T>* node) : head(node) {}
 
   LinkedList(std::vector<T> values) {
     if (values.size() < 1) {
@@ -69,9 +65,11 @@ public:
     }
   }
 
+
   ~LinkedList() {
     delete this->head;
   }
+  
 
   /**
    * compares to another list to determine
