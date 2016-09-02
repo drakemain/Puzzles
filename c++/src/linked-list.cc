@@ -14,15 +14,9 @@ private:
 
 public:
   //constructors
-  Node(T value) {
-    this->value = value;
-    this->next = nullptr;
-  }
+  Node(T value) : value(value), next(nullptr) {}
 
-  Node(T value, Node *next) {
-    this->value = value;
-    this->next = next;
-  }
+  Node(T value, Node *next) : value(value), next(next) {}
   
 
   // destructor
