@@ -6,8 +6,21 @@
 template <typename T>
 struct Node {
   T value;
-  Node* left;
-  Node* right;
+  Node* left = nullptr;
+  Node* right = nullptr;
+
+  
+  Node(T value) : value(value) {}
+
+  Node(T value, Node* left, Node* right)
+    : value(value), left(left), right(right) {}
+
+
+  ~Node() {
+    delete this->left;
+    delete this->right;
+    std::cout<<"NODE DESTR: " << this->value << std::endl;
+  }
 };
 
 template <typename T>
@@ -16,12 +29,14 @@ private:
   Node<T>* root;
 
 public:
-  Tree(T value) {
-    this->root = new Node<T>;
-    this->root->value = value;
-    this->root->left = nullptr;
-    this->root->right = nullptr;
+  Tree(T value) : root(new Node<T>(value)) {}
+
+
+  ~Tree() {
+    delete this->root;
+    std::cout<<"TREE DESTR"<<std::endl;
   }
+
 
   void pathTo(T value, std::ostream &os) {
     Node<T>* lookingAt = root;
@@ -57,8 +72,7 @@ public:
       if (value > lookingAt->value) {
         // look right
         if (lookingAt->right == nullptr) {
-          lookingAt->right = new Node<T>;
-          lookingAt->right->value = value;
+          lookingAt->right = new Node<T>(value);
           return;
         } else {
           lookingAt = lookingAt->right;
@@ -67,8 +81,7 @@ public:
       } else if (value < lookingAt->value) {
         // look left
         if (lookingAt->left == nullptr) {
-          lookingAt->left = new Node<T>;
-          lookingAt->left->value = value;
+          lookingAt->left = new Node<T>(value);
           return;
         } else {
           lookingAt = lookingAt->left;
