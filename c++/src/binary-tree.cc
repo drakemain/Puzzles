@@ -4,12 +4,13 @@
 #include <cassert>
 
 template <typename T>
-struct Node {
+class Node {
+private:
   T value;
   Node* left = nullptr;
   Node* right = nullptr;
 
-  
+public:
   Node(T value) : value(value) {}
 
   Node(T value, Node* left, Node* right)
@@ -20,6 +21,27 @@ struct Node {
     delete this->left;
     delete this->right;
     std::cout<<"NODE DESTR: " << this->value << std::endl;
+  }
+
+
+  T getValue() {
+    return this->value;
+  }
+
+  Node* getLeft() {
+    return this->left;
+  }
+
+  Node* getRight() {
+    return this->right;
+  }
+
+  void setLeft(Node* node) {
+    this->left = node;
+  }
+
+  void setRight(Node* node) {
+    this->right = node;
   }
 };
 
@@ -39,7 +61,7 @@ public:
 
 
   void pathTo(T value, std::ostream &os) {
-    Node<T>* lookingAt = root;
+    Node<T>* lookingAt = this->root;
 
     while (true) {
       if (lookingAt == nullptr) {
@@ -47,18 +69,18 @@ public:
         break;
       }
 
-      os << lookingAt->value;
+      os << lookingAt->getValue();
 
-      if (lookingAt->value == value) {
+      if (lookingAt->getValue() == value) {
         break; 
       }
 
-      if (value > lookingAt->value) {
+      if (value > lookingAt->getValue()) {
         os << " (R)";
-        lookingAt = lookingAt->right;
-      } else if (value < lookingAt->value) {
+        lookingAt = lookingAt->getRight();
+      } else if (value < lookingAt->getValue()) {
         os << " (L)";
-        lookingAt = lookingAt->left;
+        lookingAt = lookingAt->getLeft();
       }
 
       os << "→ ";
@@ -69,29 +91,35 @@ public:
     Node<T>* lookingAt = this->root;
 
     while (true) {
-      if (value > lookingAt->value) {
+      if (value > lookingAt->getValue()) {
         // look right
-        if (lookingAt->right == nullptr) {
-          lookingAt->right = new Node<T>(value);
+        if (lookingAt->getRight() == nullptr) {
+          lookingAt->setRight(new Node<T>(value));
           return;
         } else {
-          lookingAt = lookingAt->right;
+          lookingAt = lookingAt->getRight();
         }
 
-      } else if (value < lookingAt->value) {
+      } else if (value < lookingAt->getValue()) {
         // look left
-        if (lookingAt->left == nullptr) {
-          lookingAt->left = new Node<T>(value);
+        if (lookingAt->getLeft() == nullptr) {
+          lookingAt->setLeft(new Node<T>(value));
           return;
         } else {
-          lookingAt = lookingAt->left;
+          lookingAt = lookingAt->getLeft();
         }
       
-      } else if (value == lookingAt->value) {
+      } else if (value == lookingAt->getValue()) {
         return;
       }
     }
   }
+
+  // void deleteByValue(T value) {
+  //   Node* lookingAt = this->root;
+
+  //   while (lookingAt-> != )
+  // }
 };
 
 int main() {
