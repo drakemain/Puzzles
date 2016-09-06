@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
+#include <initializer_list>
 
 void test_destructors();
 
@@ -65,6 +66,12 @@ public:
     }
   }
 
+  LinkedList(std::initializer_list<T> list) {
+    for (const T &value : list) {
+      this->append(value);
+    }
+  }
+
 
   ~LinkedList() {
     delete this->head;
@@ -101,6 +108,8 @@ public:
    * @param int   the value to be appeneded
    */
   void append(T value) {
+    if (this->head == nullptr) {this->head = new Node<T>(value);return;} 
+
     Node<T>* lookingAt = this->head;
 
     while (lookingAt->getNext() != nullptr) {
@@ -253,6 +262,11 @@ int main() {
   list.deleteByValue(100);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
+
+  LinkedList<int> initializer_list_list = LinkedList<int>{0, 1, 2, 3};
+  initializer_list_list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3");
+  listString.str("");
 
   std::cout << "All int list tests passed." << std::endl;
 
