@@ -108,7 +108,10 @@ public:
    * @param int   the value to be appeneded
    */
   void append(T value) {
-    if (this->head == nullptr) {this->head = new Node<T>(value);return;} 
+    if (this->head == nullptr) {
+      this->head = new Node<T>(value);
+      return;
+    } 
 
     Node<T>* lookingAt = this->head;
 
@@ -263,7 +266,7 @@ int main() {
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
 
-  LinkedList<int> initializer_list_list = LinkedList<int>{0, 1, 2, 3};
+  LinkedList<int> initializer_list_list{0, 1, 2, 3};
   initializer_list_list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3");
   listString.str("");
