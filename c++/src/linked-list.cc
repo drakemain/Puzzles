@@ -208,20 +208,20 @@ int main() {
 
   std::ostringstream listString;
 
-  // construct a list using manually linked nodes
-  LinkedList<int>list = LinkedList<int>(new Node<int>(0, new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, nullptr)))))));
-  // construct a list using a vector
-  LinkedList<int>list1 = LinkedList<int>(std::vector<int> {0, 1, 2, 3, 4, 5});
-  // construct a list with a single initial value and inserting/appending
-  LinkedList<int>list2 = LinkedList<int>(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
+  //test constructors
+  LinkedList<int> list = LinkedList<int>(new Node<int>(0, new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, nullptr)))))));
+  LinkedList<int> list1 = LinkedList<int>(std::vector<int> {0, 1, 2, 3, 4, 5});
+  LinkedList<int> list2 = LinkedList<int>(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
+  LinkedList<int> list3{1, 2, 3, 4, 5};
 
   // ensure list contains correct values
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5"); listString.str("");
 
-  // make sure all 3 lists are equal
+  // make sure all lists are equal
   assert(list.isEqual(list1));
   assert(list.isEqual(list2));
+  assert(list.isEqual(list3));
 
   // test append method
   list.append(6);
@@ -265,11 +265,6 @@ int main() {
   list.deleteByValue(100);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
-
-  LinkedList<int> initializer_list_list{0, 1, 2, 3};
-  initializer_list_list.printTo(listString);
-  assert(listString.str() == "0 → 1 → 2 → 3");
-  listString.str("");
 
   std::cout << "All int list tests passed." << std::endl;
 
