@@ -100,7 +100,7 @@ void test_normal_pop() {
 
 void test_empty_pop_throws_exception() {
   Vector<int> empty_pop_vector{};
-  test_throws_exception([&] {empty_pop_vector.pop(); });
+  test_throws_exception([&] { empty_pop_vector.pop(); });
 }
 
 int main() {
