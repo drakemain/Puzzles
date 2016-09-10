@@ -40,8 +40,16 @@ public:
     if (this->length == 0) {
       throw std::out_of_range("Attempted pop on empty Vector.");
     }
-    length--;
-    return this->dataStore[length + 1];
+
+    return this->dataStore[length--];
+  }
+
+  unsigned int len() const{
+    return this->length;
+  }
+
+  unsigned int cap() const{
+    return this->capacity;
   }
 
   void toOstream(std::ostream &stream) {
