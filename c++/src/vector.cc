@@ -77,8 +77,6 @@ void test_normal_push() {
   Vector<int> push_vector{1, 2, 3};
   push_vector.push(4);
   test_expected_values(push_vector, "[1, 2, 3, 4]");
-  push_vector.push(1234);
-  test_expected_values(push_vector, "[1, 2, 3, 4, 1234]");
 }
 
 void test_empty_push() {
