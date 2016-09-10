@@ -52,16 +52,21 @@ public:
     return this->capacity;
   }
 
-  void toOstream(std::ostream &stream) {
+  void toOstream(std::ostream &stream) const {
+    stream << "[";  
+
     for (unsigned int i = 0; i < this->length; i++) {
       stream << this->dataStore[i];
 
       if (i < this->length - 1) {
-        stream << " → ";
+        stream << ", ";
       }
     }
+
+    stream << "]";
   }
 };
+
 
 template <typename T>
 void test_expected_values(Vector<T> &vector, std::string expectedString);
