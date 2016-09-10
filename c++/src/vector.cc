@@ -69,43 +69,71 @@ public:
 
 
 template <typename T>
-void test_expected_values(Vector<T> &vector, std::string expectedString);
+void test_expected_values(const Vector<T> &vector, const std::string &expectedString);
+template <typename Function>
+void test_throws_exception(Function func);
 
-void test_push() {
+void test_normal_push() {
   Vector<int> push_vector{1, 2, 3};
   push_vector.push(4);
-  test_expected_values(push_vector, "1 → 2 → 3 → 4");
+  test_expected_values(push_vector, "[1, 2, 3, 4]");
   push_vector.push(1234);
-  test_expected_values(push_vector, "1 → 2 → 3 → 4 → 1234");
-
-  // test on empty vector
-  Vector<int> push_vector_empty{};
-  push_vector_empty.push(1);
-  test_expected_values(push_vector_empty, "1");
-
-  std::cout << "Push tests passed." << std::endl;
+  test_expected_values(push_vector, "[1, 2, 3, 4, 1234]");
 }
 
-void test_pop() {
-  Vector<int> pop_vector{1, 2, 3, 4, 5};
-  pop_vector.pop();
-  test_expected_values(pop_vector, "1 → 2 → 3 → 4");
+void test_empty_push() {
+  Vector<int> push_vector_empty{};
+  push_vector_empty.push(1);
+  test_expected_values(push_vector_empty, "[1]");
+}
 
-  std::cout << "Pop tests passed." << std::endl;
+void test_full_push_throws_exception() {
+  Vector<int> push_vector_full{1, 2, 3, 4, 5, 6, 7, 8};
+  assert(push_vector_full.cap() == push_vector_full.len());
+
+  test_throws_exception([&] {push_vector_full.push(9); });
+}
+
+void test_normal_pop() {
+  Vector<int> pop_vector{1};
+  pop_vector.pop();
+  test_expected_values(pop_vector, "[]");
+}
+
+void test_empty_pop_throws_exception() {
+  Vector<int> empty_pop_vector{};
+  test_throws_exception([&] {empty_pop_vector.pop(); });
 }
 
 int main() {
-  std::cout << std::endl;
+  // test push
+  test_normal_push();
+  test_empty_push();
+  test_full_push_throws_exception();
 
-  test_push();
-  test_pop();
+  // test pop
+  test_normal_pop();
+  test_empty_pop_throws_exception();
 
-  std::cout << std:: endl << "All tests passed" << std::endl;
+  std::cout << std::endl << "All tests passed" << std::endl;
 };
 
 template <typename T>
-void test_expected_values(Vector<T> &vector, std::string expectedString) {
+void test_expected_values(const Vector<T> &vector, const std::string &expectedString) {
   std::ostringstream vectorValues;
   vector.toOstream(vectorValues);
   assert(vectorValues.str() == expectedString);
+}
+
+template <typename Function>
+void test_throws_exception(Function func) {
+  bool threw = false;
+
+  try {
+    func();
+  } catch(...) {
+    threw = true;
+  }
+
+  assert(threw);
 }
