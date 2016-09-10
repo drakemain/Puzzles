@@ -8,57 +8,57 @@
 template <class T>
 class Vector {
 private:
-  unsigned int length = 0;
-  unsigned int capacity = 8;
-  T* dataStore = nullptr;
+  unsigned int length_ = 0;
+  unsigned int capacity_ = 8;
+  T* dataStore_ = nullptr;
 
 public:
-  Vector() : dataStore(new T[this->capacity]{0}) {}
+  Vector() : dataStore_(new T[this->capacity_]{0}) {}
 
   Vector(std::initializer_list<T> list) 
-  : dataStore(new T[this->capacity]{0}) {
+  : dataStore_(new T[this->capacity_]{0}) {
     for (const T &item : list) {
       this->push(item);
     }
   }
 
   ~Vector() {
-    delete[] this->dataStore;
+    delete[] this->dataStore_;
   }
 
 
   void push(T val) {
-    if (this->length >= capacity) {
+    if (this->length_ >= capacity_) {
       throw std::out_of_range("Vector capacity exceeded.");
     }
 
-    this->dataStore[this->length] = val;
-    ++this->length;
+    this->dataStore_[this->length_] = val;
+    ++this->length_;
   }
 
   T pop() {
-    if (this->length == 0) {
+    if (this->length_ == 0) {
       throw std::out_of_range("Attempted pop on empty Vector.");
     }
 
-    return this->dataStore[length--];
+    return this->dataStore_[length_--];
   }
 
-  unsigned int len() const{
-    return this->length;
+  unsigned int length() const{
+    return this->length_;
   }
 
-  unsigned int cap() const{
-    return this->capacity;
+  unsigned int capacity() const{
+    return this->capacity_;
   }
 
   void toOstream(std::ostream &stream) const {
     stream << "[";  
 
-    for (unsigned int i = 0; i < this->length; i++) {
-      stream << this->dataStore[i];
+    for (unsigned int i = 0; i < this->length_; i++) {
+      stream << this->dataStore_[i];
 
-      if (i < this->length - 1) {
+      if (i < this->length_ - 1) {
         stream << ", ";
       }
     }
@@ -87,7 +87,7 @@ void test_empty_push() {
 
 void test_full_push_throws_exception() {
   Vector<int> push_vector_full{1, 2, 3, 4, 5, 6, 7, 8};
-  assert(push_vector_full.cap() == push_vector_full.len());
+  assert(push_vector_full.capacity() == push_vector_full.length());
 
   test_throws_exception([&] {push_vector_full.push(9); });
 }
