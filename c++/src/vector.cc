@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <initializer_list>
+#include <stdexcept>
 #include <cassert>
 
 template <class T>
@@ -27,21 +28,18 @@ public:
 
 
   void push(T val) {
-    if (length >= capacity) {
-      std::cout << "Vector capacity exceeded. ";
-      std::exit(1);
+    if (this->length >= capacity) {
+      throw std::out_of_range("Vector capacity exceeded.");
     }
 
     this->dataStore[this->length] = val;
-    this->length++;
+    ++this->length;
   }
 
   T pop() {
-    if (length == 0) {
-      std::cout << "Attempted to pop empty vector. ";
-      std::exit(1);
+    if (this->length == 0) {
+      throw std::out_of_range("Attempted pop on empty Vector.");
     }
-
     length--;
     return this->dataStore[length + 1];
   }
