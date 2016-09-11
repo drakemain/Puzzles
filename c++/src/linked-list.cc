@@ -45,7 +45,7 @@ public:
 template <class T>
 class LinkedList {
 private:
-  Node<T>* head;
+  Node<T>* head = nullptr;
 
 public:
   LinkedList(T value) : head(new Node<T>(value)) {}
