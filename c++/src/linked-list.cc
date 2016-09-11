@@ -212,7 +212,7 @@ int main() {
   LinkedList<int> list = LinkedList<int>(new Node<int>(0, new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, nullptr)))))));
   LinkedList<int> list1 = LinkedList<int>(std::vector<int> {0, 1, 2, 3, 4, 5});
   LinkedList<int> list2 = LinkedList<int>(1); list2.insert(0, 0); list2.insert(2, 2); list2.append(3); list2.append(4); list2.append(5);
-  LinkedList<int> list3{1, 2, 3, 4, 5};
+  LinkedList<int> list3{0, 1, 2, 3, 4, 5};
 
   // ensure list contains correct values
   list.printTo(listString);
