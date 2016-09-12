@@ -65,6 +65,19 @@ public:
 
     stream << "]";
   }
+
+  void grow(int growFactor = 2) {
+    this->capacity_ = this->capacity_ * growFactor;
+    T *temp = this->dataStore_;
+
+    this->dataStore_ = new T[this->capacity_];
+
+    for (unsigned int i = 0; i < this->length_; i++) {
+      this->dataStore_[i] = temp[i];
+    }
+
+    delete[] temp;
+  }
 };
 
 
