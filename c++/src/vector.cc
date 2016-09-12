@@ -29,7 +29,7 @@ public:
 
   void push(T val) {
     if (this->length_ >= capacity_) {
-      throw std::out_of_range("Vector capacity exceeded.");
+      this->grow();
     }
 
     this->dataStore_[this->length_] = val;
