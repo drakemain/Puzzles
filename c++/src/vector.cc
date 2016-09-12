@@ -66,6 +66,7 @@ public:
     stream << "]";
   }
 
+private:
   void grow(int growFactor = 2) {
     this->capacity_ = this->capacity_ * growFactor;
     T *temp = this->dataStore_;
@@ -98,11 +99,16 @@ void test_empty_push() {
   test_expected_values(push_vector_empty, "[1]");
 }
 
-void test_full_push_throws_exception() {
+void test_full_push_doubles_capacity() {
   Vector<int> push_vector_full{1, 2, 3, 4, 5, 6, 7, 8};
   assert(push_vector_full.capacity() == push_vector_full.length());
 
-  test_throws_exception([&] {push_vector_full.push(9); });
+  unsigned int previousCapacity = push_vector_full.capacity();
+
+  push_vector_full.push(9);
+
+  assert(push_vector_full.capacity() == previousCapacity * 2);
+  test_expected_values(push_vector_full, "[1, 2, 3, 4, 5, 6, 7, 8, 9]");
 }
 
 void test_normal_pop() {
@@ -120,7 +126,7 @@ int main() {
   // test push
   test_normal_push();
   test_empty_push();
-  test_full_push_throws_exception();
+  test_full_push_doubles_capacity();
 
   // test pop
   test_normal_pop();
