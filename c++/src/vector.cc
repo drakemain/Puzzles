@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <stdexcept>
 #include <cassert>
+#include <math.h>
 
 template <class T>
 class Vector {
@@ -11,7 +12,7 @@ private:
   unsigned int length_ = 0;
   unsigned int capacity_ = 8;
   T* dataStore_ = nullptr;
-  const unsigned int growFactor = 2;
+  const unsigned int GROWTH_FACTOR = 2;
 
 public:
   Vector() : dataStore_(new T[this->capacity_]{0}) {}
@@ -45,13 +46,15 @@ public:
     return this->dataStore_[length_--];
   }
 
-  void reserve(unsigned int reserveIndices) {
-    while (this->capacity_ < reserveIndices) {
-      this->capacity_ = this->capacity_ * this->growFactor;
-    }
-    
-    T *temp = this->dataStore_;
+  void reserve(unsigned int requestedCapacity) {
+    unsigned int newCapacity = pow(2, ceil(log2(requestedCapacity)));
 
+    if (newCapacity <= this->capacity_) {
+      return;
+    }
+
+    this->capacity_ = newCapacity;
+    T *temp = this->dataStore_;
     this->dataStore_ = new T[this->capacity_];
 
     for (unsigned int i = 0; i < this->length_; ++i) {
@@ -125,12 +128,21 @@ void test_empty_pop_throws_exception() {
   test_throws_exception([&] { empty_pop_vector.pop(); });
 }
 
-void test_normal_reserve() {
+void test_base_two_reserve() {
   Vector<int> reserve_vector{1, 2, 3};
   assert(reserve_vector.capacity() == 8); 
 
-  reserve_vector.reserve(20);
-  assert(reserve_vector.capacity() == 32);
+  reserve_vector.reserve(256);
+  assert(reserve_vector.capacity() == 256);
+  test_expected_values(reserve_vector, "[1, 2, 3]");
+}
+
+void test_non_base_two_reserve() {
+  Vector<int> reserve_vector{1, 2, 3};
+  assert(reserve_vector.capacity() == 8); 
+
+  reserve_vector.reserve(257);
+  assert(reserve_vector.capacity() == 512);
   test_expected_values(reserve_vector, "[1, 2, 3]");
 }
 
@@ -145,7 +157,8 @@ int main() {
   test_empty_pop_throws_exception();
 
   // test reserve
-  test_normal_reserve();
+  test_base_two_reserve();
+  test_non_base_two_reserve()
 
   std::cout << std::endl << "All tests passed" << std::endl;
 };
