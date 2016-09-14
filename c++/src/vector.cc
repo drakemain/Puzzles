@@ -11,6 +11,7 @@ private:
   unsigned int length_ = 0;
   unsigned int capacity_ = 8;
   T* dataStore_ = nullptr;
+  const unsigned int growFactor = 2;
 
 public:
   Vector() : dataStore_(new T[this->capacity_]{0}) {}
@@ -29,7 +30,7 @@ public:
 
   void push(T val) {
     if (this->length_ >= capacity_) {
-      this->grow();
+      this->reserve(this->capacity_ + 1);
     }
 
     this->dataStore_[this->length_] = val;
@@ -44,18 +45,26 @@ public:
     return this->dataStore_[length_--];
   }
 
-  unsigned int length() const{
-    return this->length_;
-  }
+  void reserve(unsigned int reserveIndices) {
+    while (this->capacity_ < reserveIndices) {
+      this->capacity_ = this->capacity_ * this->growFactor;
+    }
+    
+    T *temp = this->dataStore_;
 
-  unsigned int capacity() const{
-    return this->capacity_;
+    this->dataStore_ = new T[this->capacity_];
+
+    for (unsigned int i = 0; i < this->length_; ++i) {
+      this->dataStore_[i] = temp[i];
+    }
+
+    delete[] temp;
   }
 
   void toOstream(std::ostream &stream) const {
     stream << "[";  
 
-    for (unsigned int i = 0; i < this->length_; i++) {
+    for (unsigned int i = 0; i < this->length_; ++i) {
       stream << this->dataStore_[i];
 
       if (i < this->length_ - 1) {
@@ -66,18 +75,12 @@ public:
     stream << "]";
   }
 
-private:
-  void grow(int growFactor = 2) {
-    this->capacity_ = this->capacity_ * growFactor;
-    T *temp = this->dataStore_;
+  unsigned int length() const {
+    return this->length_;
+  }
 
-    this->dataStore_ = new T[this->capacity_];
-
-    for (unsigned int i = 0; i < this->length_; i++) {
-      this->dataStore_[i] = temp[i];
-    }
-
-    delete[] temp;
+  unsigned int capacity() const {
+    return this->capacity_;
   }
 };
 
@@ -122,6 +125,15 @@ void test_empty_pop_throws_exception() {
   test_throws_exception([&] { empty_pop_vector.pop(); });
 }
 
+void test_normal_reserve() {
+  Vector<int> reserve_vector{1, 2, 3};
+  assert(reserve_vector.capacity() == 8); 
+
+  reserve_vector.reserve(20);
+  assert(reserve_vector.capacity() == 32);
+  test_expected_values(reserve_vector, "[1, 2, 3]");
+}
+
 int main() {
   // test push
   test_normal_push();
@@ -131,6 +143,9 @@ int main() {
   // test pop
   test_normal_pop();
   test_empty_pop_throws_exception();
+
+  // test reserve
+  test_normal_reserve();
 
   std::cout << std::endl << "All tests passed" << std::endl;
 };
