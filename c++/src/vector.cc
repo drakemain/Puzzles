@@ -9,8 +9,8 @@
 template <class T>
 class Vector {
 private:
-  unsigned int length_ = 0;
-  unsigned int capacity_ = 8;
+  std::size_t length_ = 0;
+  std::size_t capacity_ = 8;
   T* dataStore_ = nullptr;
   const unsigned int GROWTH_FACTOR = 2;
 
@@ -78,7 +78,11 @@ public:
     stream << "]";
   }
 
-  T operator[](unsigned int index) {
+  T& operator[](unsigned int index) {
+    return this->dataStore_[index];
+  }
+
+  T& operator[](int index) {
     return this->dataStore_[index];
   }
 
@@ -153,9 +157,15 @@ void test_non_base_two_reserve() {
 void test_get_value() {
   Vector<int> index_retrieval_vector{1, 2, 3, 4, 5};
   
-  for (int i = 0; i < 5; i++) {
-    assert(index_retrieval_vector[i] == i + 1);
-  }
+  assert(index_retrieval_vector[2] == 3);
+}
+
+void test_modify_value() {
+  Vector<int> index_modify_vector{1, 2, 3, 4, 5};
+
+  index_modify_vector[2] = 10;
+
+  assert(index_modify_vector[2] == 10);
 }
 
 int main() {
@@ -174,6 +184,7 @@ int main() {
 
   // test getting values at specific index
   test_get_value();
+  test_modify_value();
 
   std::cout << std::endl << "All tests passed" << std::endl;
 };
