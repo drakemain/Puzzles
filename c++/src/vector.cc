@@ -78,6 +78,10 @@ public:
     stream << "]";
   }
 
+  T operator[](unsigned int index) {
+    return this->dataStore_[index];
+  }
+
   unsigned int length() const {
     return this->length_;
   }
@@ -146,6 +150,14 @@ void test_non_base_two_reserve() {
   test_expected_values(reserve_vector, "[1, 2, 3]");
 }
 
+void test_get_value() {
+  Vector<int> index_retrieval_vector{1, 2, 3, 4, 5};
+  
+  for (int i = 0; i < 5; i++) {
+    assert(index_retrieval_vector[i] == i + 1);
+  }
+}
+
 int main() {
   // test push
   test_normal_push();
@@ -159,6 +171,9 @@ int main() {
   // test reserve
   test_base_two_reserve();
   test_non_base_two_reserve();
+
+  // test getting values at specific index
+  test_get_value();
 
   std::cout << std::endl << "All tests passed" << std::endl;
 };
