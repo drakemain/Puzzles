@@ -79,10 +79,10 @@ public:
   }
 
   T& operator[](unsigned int index) {
-    return this->dataStore_[index];
-  }
+    if (index > this->length_ - 1) {
+      throw std::out_of_range("Index is out of range.");
+    }
 
-  T& operator[](int index) {
     return this->dataStore_[index];
   }
 
