@@ -38,6 +38,7 @@ public:
     ++this->length_;
   }
 
+  //remove and return last value in Vector
   T pop() {
     if (this->length_ == 0) {
       throw std::out_of_range("Attempted pop on empty Vector.");
