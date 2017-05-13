@@ -102,8 +102,26 @@ public:
     return !(lookingAt || compareTo);
   }
 
+  T pop() {
+    Node<T>* lookingAt = this->head;
+    T lastNodeValue;
+
+    std::cout << "POP!" << std::endl;
+
+    while (lookingAt->getNext() != nullptr) {
+      lookingAt = lookingAt->getNext();
+
+      std::cout << lookingAt->getValue();
+    }
+
+    lastNodeValue = lookingAt->getValue();
+
+    delete lookingAt;
+    return lastNodeValue;
+  }
+
   /**
-   * append a node to the list
+   * append a node to the lists
    * 
    * @param int   the value to be appeneded
    */
@@ -265,6 +283,11 @@ int main() {
   list.deleteByValue(100);
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5 → 6"); listString.str("");
+
+  // test pop method
+  list.pop();
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5"); listString.str("");
 
   std::cout << "All int list tests passed." << std::endl;
 
