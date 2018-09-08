@@ -1,8 +1,16 @@
 node_modules/
 rust/target/
 c++/build/
+c++/CMakeFiles/*
+c++/out/*
+c++/MakeFile
+c++/CMakeCache.txt
+c++/compile_commands.json
+c++/cmake_install.cmake
+c++/Makefile
 
 *.bin
 
 *.sublime-workspace
 *.sublime-projectsh
+.vscode/*
