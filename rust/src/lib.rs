@@ -2,6 +2,7 @@
 //
 // mod the_file_name;
 
-mod enumerate_primes;
 mod complementary_dna;
+mod enumerate_primes;
 mod mumbling;
+mod row_weights;
