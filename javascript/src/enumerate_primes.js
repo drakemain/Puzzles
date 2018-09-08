@@ -46,3 +46,33 @@ function eratosthenes(input) {
 }
 
 exports.eratosthenes = eratosthenes;
+
+function eratosthenes2(input) {
+  let list = new Array(input - 2);
+  let sqrtInput = Math.sqrt(input);
+
+  for (let i = 2; i <= input; ++i) {
+    list[i-2] = Number(i);
+  }
+
+  for (let i = 0; i < sqrtInput; ++i) {
+    for (let j = i + list[i]; j < list.length; j += list[i]) {
+      console.log('Prime value: ' + list[i]);
+      console.log(' index: ' + j + ` (${list[j]})`);
+
+      if (list[i] == 0) {
+        break;
+      }
+
+      list[j] = 0;
+    }
+  }
+
+  for (val in list) {
+    if (list[val] !== 0) {
+      console.log('  ' + list[val]);  
+    }
+  }
+}
+
+eratosthenes2(100);
