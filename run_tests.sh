@@ -1,6 +1,6 @@
-#run this from the puzzles root
-
 #!/bin/bash
+
+#run this from the puzzles root
 
 ROOT=$PWD
 
