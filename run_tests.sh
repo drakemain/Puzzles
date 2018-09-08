@@ -6,6 +6,9 @@ ROOT=$PWD
 
 echo -e "\e[7mRunning C++ puzzles.\e[0m"
 cd /"$ROOT"/c++/
+if [ ! -d "build" ]; then
+  ./init.sh
+fi
 ./build.sh
 cd build/out/
 for bin in *; do
