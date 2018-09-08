@@ -19,6 +19,9 @@ done
 
 echo -e "\e[7mRunning JavaScript puzzles.\e[0m"
 cd /"$ROOT"/javascript/
+if [ ! -d node_modules ]; then
+  npm install
+fi
 npm test
 
 echo -e "\e[7mRunning Rust puzzles.\e[0m"
