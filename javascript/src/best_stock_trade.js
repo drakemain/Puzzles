@@ -8,9 +8,6 @@ module.exports.getMaxProfitSlow = function(prices) {
       if (largestProfit === null || profit > largestProfit) {
         largestProfit = profit;
       }
-
-      console.log('Buy: ', prices[i], ', Sell: ', prices[j], ', Profit: ', profit, 
-        ', LProfit: ', largestProfit);
     }
   }
 
