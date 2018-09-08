@@ -102,21 +102,29 @@ public:
     return !(lookingAt || compareTo);
   }
 
+  /**
+   * Remove the last node from the list and return its value;
+   *
+   * @return T    value of removed node
+   */
+
   T pop() {
     Node<T>* lookingAt = this->head;
-    T lastNodeValue;
-
-    std::cout << "POP!" << std::endl;
+    Node<T>* previousNode = nullptr;
 
     while (lookingAt->getNext() != nullptr) {
+      previousNode = lookingAt;
       lookingAt = lookingAt->getNext();
-
-      std::cout << lookingAt->getValue();
     }
 
-    lastNodeValue = lookingAt->getValue();
+    T lastNodeValue = lookingAt->getValue();
 
     delete lookingAt;
+
+    if (previousNode) {
+      previousNode->setNext(nullptr);
+    }
+    
     return lastNodeValue;
   }
 
@@ -289,7 +297,27 @@ int main() {
   list.printTo(listString);
   assert(listString.str() == "0 → 1 → 2 → 3 → 4 → 5"); listString.str("");
 
-  std::cout << "All int list tests passed." << std::endl;
+  list.pop();
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3 → 4"); listString.str("");
+
+  list.pop();
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2 → 3"); listString.str("");
+
+  list.pop();
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1 → 2"); listString.str("");
+
+  list.pop();
+  list.printTo(listString);
+  assert(listString.str() == "0 → 1"); listString.str("");
+
+  list.pop();
+  list.printTo(listString);
+  assert(listString.str() == "0"); listString.str("");
+
+  std::cout << "All int list tests complete." << std::endl;
 
   LinkedList<std::string> stringList = LinkedList<std::string>("Hello"); stringList.append("World.");
   LinkedList<std::string> stringList1 = LinkedList<std::string>(new Node<std::string>("Hello", new Node<std::string>("World.")));
@@ -299,7 +327,7 @@ int main() {
   stringList.insert(", ", 1);
   assert(!stringList.isEqual(stringList1));
 
-  std::cout << "All string list tests passed." << std::endl;
+  std::cout << "All string list tests complete." << std::endl;
 }
 
 void test_destructors() {
