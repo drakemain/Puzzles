@@ -74,8 +74,8 @@ public:
     }
 };
 
-template <typename T>
-void BFTests(Graph<T>& graph);
+void intBFTests(Graph<int>& graph);
+void charBFTests(Graph<char>& graph);
 
 int main() {
     Graph<int> intGraph = Graph<int>({
@@ -90,13 +90,25 @@ int main() {
         {99, 31}
     });
 
-    BFTests(intGraph);
+    Graph<char> charGraph = Graph<char>({
+        {'a', 'b'}, {'a', 'c'}, {'a', 'x'},
+        {'b', 'd'}, {'b', 'f'},
+        {'c', 'b'}, {'c', 'e'}, {'c', 'g'}, {'c', 'r'},
+        {'x', 'y'}, {'x', 'z'},
+        {'f', 'e'},
+        {'r', 'g'},
+        {'g', 'i'},
+        {'i', 'a'},
+        {'w', 'g'}
+    });
+
+    intBFTests(intGraph);
+    charBFTests(charGraph);
 
     return 0;
 }
 
-template <typename T>
-void BFTests(Graph<T>& graph) {
+void intBFTests(Graph<int>& graph) {
     assert(graph.BFPathTo(1, 55));
     assert(graph.BFPathTo(1, 100));
     assert(graph.BFPathTo(1, 7));
@@ -111,3 +123,17 @@ void BFTests(Graph<T>& graph) {
     std::cout << "All graph int BF tests passed!" << std::endl;
 }
 
+void charBFTests(Graph<char>& graph) {
+    assert(graph.BFPathTo('a', 'i'));
+    assert(graph.BFPathTo('a', 'x'));
+    assert(graph.BFPathTo('a', 'f'));
+
+    assert(graph.BFPathTo('w', 'a'));
+    assert(graph.BFPathTo('w', 'r'));
+
+    assert(!graph.BFPathTo('a', 'w'));
+    assert(!graph.BFPathTo('x', 'a'));
+    assert(!graph.BFPathTo('y', 'f'));
+
+    std::cout << "All graph int BF tests passed!" << std::endl;
+}
