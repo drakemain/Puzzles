@@ -54,6 +54,35 @@ public:
         return false;
     }
 
+    bool DFPathTo(T start, T end, bool log = false) {
+        std::set<T> visited;
+
+        return DFPathTo(start, end, visited, log);
+    }
+
+private:
+    bool DFPathTo(T start, T end, std::set<T>& visited, bool log) {
+        if (log) std::cout << start << std::endl;
+
+        if (start == end) {
+            return true;
+        }
+
+        visited.insert(start);
+
+        for (T connection : this->connections[start]) {
+            if (log) std::cout << "\t↘" << connection << std::endl;
+            if (visited.find(connection) == visited.end()) {
+                if (this->DFPathTo(connection, end, visited, log)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+public:
     std::string toString() const {
         std::string result = "";
 
@@ -74,8 +103,8 @@ public:
     }
 };
 
-void intBFTests(Graph<int>& graph);
-void charBFTests(Graph<char>& graph);
+void intTests(Graph<int>& graph);
+void charTests(Graph<char>& graph);
 
 int main() {
     Graph<int> intGraph = Graph<int>({
@@ -102,13 +131,16 @@ int main() {
         {'w', 'g'}
     });
 
-    intBFTests(intGraph);
-    charBFTests(charGraph);
+    intTests(intGraph);
+    charTests(charGraph);
+
+    std::cout << "All graph tests passed!" << std::endl;
 
     return 0;
 }
 
-void intBFTests(Graph<int>& graph) {
+void intTests(Graph<int>& graph) {
+    // BF
     assert(graph.BFPathTo(1, 55));
     assert(graph.BFPathTo(1, 100));
     assert(graph.BFPathTo(1, 7));
@@ -120,10 +152,21 @@ void intBFTests(Graph<int>& graph) {
     assert(!graph.BFPathTo(100, 1));
     assert(!graph.BFPathTo(101, 7));
 
-    std::cout << "All graph int BF tests passed!" << std::endl;
+    // DF
+    assert(graph.DFPathTo(1, 55));
+    assert(graph.DFPathTo(1, 100));
+    assert(graph.DFPathTo(1, 7));
+
+    assert(graph.DFPathTo(99, 1));
+    assert(graph.DFPathTo(99, 50));
+
+    assert(!graph.DFPathTo(1, 99));
+    assert(!graph.DFPathTo(100, 1));
+    assert(!graph.DFPathTo(101, 7));
 }
 
-void charBFTests(Graph<char>& graph) {
+void charTests(Graph<char>& graph) {
+    // BF
     assert(graph.BFPathTo('a', 'i'));
     assert(graph.BFPathTo('a', 'x'));
     assert(graph.BFPathTo('a', 'f'));
@@ -135,5 +178,15 @@ void charBFTests(Graph<char>& graph) {
     assert(!graph.BFPathTo('x', 'a'));
     assert(!graph.BFPathTo('y', 'f'));
 
-    std::cout << "All graph int BF tests passed!" << std::endl;
+    // DF
+    assert(graph.BFPathTo('a', 'i'));
+    assert(graph.BFPathTo('a', 'x'));
+    assert(graph.BFPathTo('a', 'f'));
+
+    assert(graph.BFPathTo('w', 'a'));
+    assert(graph.BFPathTo('w', 'r'));
+
+    assert(!graph.BFPathTo('a', 'w'));
+    assert(!graph.BFPathTo('x', 'a'));
+    assert(!graph.BFPathTo('y', 'f'));
 }
