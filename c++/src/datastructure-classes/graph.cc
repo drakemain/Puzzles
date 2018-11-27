@@ -74,10 +74,11 @@ public:
     }
 };
 
-void intBFTests(Graph<int>& graph);
+template <typename T>
+void BFTests(Graph<T>& graph);
 
 int main() {
-    Graph<int> graph = Graph<int>({
+    Graph<int> intGraph = Graph<int>({
         {1, 2}, {1, 3}, {1, 100},
         {2, 4}, {2, 6},
         {3, 2}, {3, 5}, {3, 7}, {3, 50},
@@ -89,14 +90,13 @@ int main() {
         {99, 31}
     });
 
-    intBFTests(graph);
+    BFTests(intGraph);
 
     return 0;
-
-    
 }
 
-void intBFTests(Graph<int>& graph) {
+template <typename T>
+void BFTests(Graph<T>& graph) {
     assert(graph.BFPathTo(1, 55));
     assert(graph.BFPathTo(1, 100));
     assert(graph.BFPathTo(1, 7));
